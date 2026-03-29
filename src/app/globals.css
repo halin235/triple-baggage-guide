@@ -1,0 +1,16 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --triple-blue: #3182f6;
+  --point-red: #ff4b4b;
+  --point-blue-soft: #e8f3ff;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+  font-family: "Pretendard", system-ui, sans-serif;
+}
