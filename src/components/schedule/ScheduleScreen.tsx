@@ -39,7 +39,7 @@ export function ScheduleScreen() {
         };
       }
       return {
-        tripTitle: "도쿄 여행",
+        tripTitle: "오사카 여행",
         dateLine: formatTripRangeWithWeekdayParen(
           DEMO_TRIP_START_ISO,
           DEMO_TRIP_END_ISO

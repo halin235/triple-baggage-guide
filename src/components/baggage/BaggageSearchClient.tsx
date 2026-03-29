@@ -6,14 +6,17 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BaggageAttentionAccordionRow } from "@/components/baggage/BaggageAttentionAccordionRow";
 import { BaggageSearchMappingAccordionRow } from "@/components/baggage/BaggageSearchMappingAccordionRow";
+import { DEMO_TRIP_END_ISO, DEMO_TRIP_START_ISO } from "@/constants/demoTripDates";
+import { useTripDraft } from "@/context/TripDraftContext";
 import { getCategoryTiles } from "@/lib/baggageCategories";
 import { logAnalytics } from "@/lib/analytics";
 import { parseTripPhaseParam } from "@/lib/baggageRegulationSheets";
 import {
   filterSearchMappingRows,
-  getSearchMappingStore,
+  getSearchMappingStoreResolved,
 } from "@/lib/baggageSearchMapping";
 import { searchBaggageRegulations } from "@/lib/baggageSearch";
+import { todayDateOnly } from "@/lib/homeTripHeadline";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import type { BaggageAirportCode, BaggageRegulationItem } from "@/types/baggage";
 import type { BaggageSearchMappingRow } from "@/types/baggageSearchMapping";
@@ -33,6 +36,7 @@ function parseAirport(raw: string | null): BaggageAirportCode {
 export function BaggageSearchClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const tripDraft = useTripDraft();
   const airport = parseAirport(searchParams.get("airport"));
   const tripPhaseParam = searchParams.get("tripPhase");
   const tripPhase = useMemo(
@@ -40,15 +44,27 @@ export function BaggageSearchClient() {
     [tripPhaseParam]
   );
 
+  const tripStartISO =
+    tripDraft.isComplete && tripDraft.startDate
+      ? tripDraft.startDate
+      : DEMO_TRIP_START_ISO;
+  const tripEndISO =
+    tripDraft.isComplete && tripDraft.endDate ? tripDraft.endDate : DEMO_TRIP_END_ISO;
+
+  const { mappingStore, mappingLeg } = useMemo(() => {
+    const resolved = getSearchMappingStoreResolved(
+      tripPhase,
+      todayDateOnly(),
+      tripStartISO,
+      tripEndISO
+    );
+    return { mappingStore: resolved.rows, mappingLeg: resolved.leg };
+  }, [tripPhase, tripStartISO, tripEndISO]);
+
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebouncedValue(query, 400);
   const [attentionExpanded, setAttentionExpanded] = useState<Record<string, boolean>>({});
   const [mappingExpanded, setMappingExpanded] = useState<Record<string, boolean>>({});
-
-  const mappingStore = useMemo(
-    () => getSearchMappingStore(tripPhase, airport),
-    [tripPhase, airport]
-  );
 
   const searchActive = query.trim().length > 0;
   const mappingHits = useMemo(
@@ -205,13 +221,9 @@ export function BaggageSearchClient() {
           <section className="mt-4 pb-10" aria-live="polite">
             <h2 className="text-[17px] font-bold leading-tight text-black">검색 결과</h2>
             <p className="mt-1 text-[13px] text-[#999999]">
-              {tripPhase === "departure"
+              {mappingLeg === "japan"
                 ? "일본행_검색어_매핑 테이블"
-                : tripPhase === "return"
-                  ? "한국행_검색어_매핑 테이블"
-                  : airport === "ICN"
-                    ? "한국행_검색어_매핑 테이블"
-                    : "일본행_검색어_매핑 테이블"}
+                : "한국행_검색어_매핑 테이블"}
               · 유저 예상 검색어와 매칭된 품목이에요.
             </p>
             <ul className="mt-3 flex flex-col gap-3">

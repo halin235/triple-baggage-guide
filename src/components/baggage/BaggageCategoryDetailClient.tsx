@@ -5,14 +5,27 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BaggageAttentionAccordionRow } from "@/components/baggage/BaggageAttentionAccordionRow";
+import { BaggageSearchMappingAccordionRow } from "@/components/baggage/BaggageSearchMappingAccordionRow";
+import { DEMO_TRIP_END_ISO, DEMO_TRIP_START_ISO } from "@/constants/demoTripDates";
+import { useTripDraft } from "@/context/TripDraftContext";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import {
   isGridCategory,
   regulationsByCategoryAndAirport,
 } from "@/lib/baggageCategoryRegulations";
-import { baggageSearchQueryString, parseTripPhaseParam } from "@/lib/baggageRegulationSheets";
 import { logAnalytics } from "@/lib/analytics";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import {
+  baggageSearchQueryString,
+  parseTripPhaseParam,
+} from "@/lib/baggageRegulationSheets";
+import {
+  filterMappingRowsByGridCategory,
+  filterSearchMappingRows,
+  getSearchMappingStoreResolved,
+} from "@/lib/baggageSearchMapping";
+import { todayDateOnly } from "@/lib/homeTripHeadline";
 import type { BaggageAirportCode, BaggageRegulationItem } from "@/types/baggage";
+import type { BaggageSearchMappingRow } from "@/types/baggageSearchMapping";
 
 function parseAirport(raw: string | null): BaggageAirportCode {
   return raw === "ICN" ? "ICN" : "KIX";
@@ -47,6 +60,7 @@ function categoryDisplayName(category: string) {
 export function BaggageCategoryDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const tripDraft = useTripDraft();
   const airport = parseAirport(searchParams.get("airport"));
   const tripPhaseParam = searchParams.get("tripPhase");
   const tripPhase = useMemo(
@@ -62,14 +76,47 @@ export function BaggageCategoryDetailClient() {
     }
   }, [categoryRaw]);
 
+  const tripStartISO =
+    tripDraft.isComplete && tripDraft.startDate
+      ? tripDraft.startDate
+      : DEMO_TRIP_START_ISO;
+  const tripEndISO =
+    tripDraft.isComplete && tripDraft.endDate ? tripDraft.endDate : DEMO_TRIP_END_ISO;
+
+  const { mappingStore, mappingLeg } = useMemo(() => {
+    const resolved = getSearchMappingStoreResolved(
+      tripPhase,
+      todayDateOnly(),
+      tripStartISO,
+      tripEndISO
+    );
+    return { mappingStore: resolved.rows, mappingLeg: resolved.leg };
+  }, [tripPhase, tripStartISO, tripEndISO]);
+
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebouncedValue(query, 350);
   const [accordionOpen, setAccordionOpen] = useState<Record<string, boolean>>({});
+  const [mappingExpanded, setMappingExpanded] = useState<Record<string, boolean>>({});
 
   const baseList = useMemo(() => {
     if (!isGridCategory(category)) return [];
     return regulationsByCategoryAndAirport(airport, category, tripPhase);
   }, [airport, category, tripPhase]);
+
+  const mappingPool = useMemo(() => {
+    if (!isGridCategory(category)) return [];
+    return filterMappingRowsByGridCategory(mappingStore, category);
+  }, [mappingStore, category]);
+
+  const searchActive = debouncedQuery.trim().length > 0;
+
+  const mappingHits = useMemo(
+    () =>
+      searchActive
+        ? filterSearchMappingRows(mappingPool, debouncedQuery)
+        : [],
+    [mappingPool, debouncedQuery, searchActive]
+  );
 
   const filtered = useMemo(
     () => filterByQuery(baseList, debouncedQuery),
@@ -96,13 +143,25 @@ export function BaggageCategoryDetailClient() {
       airport,
       category,
       queryLen: debouncedQuery.length,
-      resultCount: filtered.length,
+      resultCount: searchActive ? mappingHits.length : filtered.length,
+      searchMode: searchActive ? "mapping_sheet" : "category_browse",
     });
-  }, [airport, category, debouncedQuery, filtered.length]);
+  }, [
+    airport,
+    category,
+    debouncedQuery,
+    filtered.length,
+    mappingHits.length,
+    searchActive,
+  ]);
 
   useEffect(() => {
     setAccordionOpen({});
   }, [airport, category, tripPhase]);
+
+  useEffect(() => {
+    if (!searchActive) setMappingExpanded({});
+  }, [searchActive]);
 
   const onRowClick = useCallback(
     (row: BaggageRegulationItem) => {
@@ -130,6 +189,20 @@ export function BaggageCategoryDetailClient() {
       });
     },
     [accordionOpen, airport, category, onRowClick]
+  );
+
+  const toggleMappingRow = useCallback(
+    (row: BaggageSearchMappingRow) => {
+      const willOpen = !mappingExpanded[row.id];
+      setMappingExpanded((p) => ({ ...p, [row.id]: !p[row.id] }));
+      logAnalytics("baggage_category_mapping_row_toggle", {
+        mappingId: row.id,
+        airport,
+        category,
+        expanded: willOpen,
+      });
+    },
+    [airport, category, mappingExpanded]
   );
 
   const goBack = useCallback(() => {
@@ -186,45 +259,73 @@ export function BaggageCategoryDetailClient() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="이 카테고리에서 검색"
+            placeholder="무엇을 가져가시나요?"
             className="h-12 w-full rounded-lg bg-[#EFEFEF] py-3 pl-11 pr-4 text-[16px] text-black placeholder:text-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6]/25"
             aria-label="카테고리 내 검색"
           />
         </div>
 
-        <section className="mt-6 pb-10" aria-labelledby="category-attention-heading">
-          <h2
-            id="category-attention-heading"
-            className="text-[17px] font-bold leading-tight text-black"
-          >
-            주의해야 할 규정
-          </h2>
-          <p className="mt-1 text-[13px] text-[#999999]">
-            품목을 누르면 안내 문구 상세가 펼쳐져요. 여러 개를 동시에 열어 비교할 수
-            있습니다.
-          </p>
-          <p className="mt-4 text-[14px] text-[#999999]">
-            전체 <span className="font-semibold text-black">{filtered.length}</span>건
-          </p>
-
-          <ul className="mt-3 flex flex-col gap-3">
-            {filtered.map((row) => (
-              <li key={row.id}>
-                <BaggageAttentionAccordionRow
-                  row={row}
-                  open={!!accordionOpen[row.id]}
-                  onToggle={() => toggleAccordionRow(row)}
-                />
-              </li>
-            ))}
-          </ul>
-
-          {filtered.length === 0 ? (
-            <p className="py-12 text-center text-[14px] leading-relaxed text-[#999999]">
-              조건에 맞는 품목이 없습니다. 검색어를 바꿔 보세요.
+        {searchActive ? (
+          <section className="mt-6 pb-10" aria-live="polite">
+            <h2 className="text-[17px] font-bold leading-tight text-black">검색 결과</h2>
+            <p className="mt-1 text-[13px] text-[#999999]">
+              {mappingLeg === "japan"
+                ? "일본행_검색어_매핑 테이블"
+                : "한국행_검색어_매핑 테이블"}
+              · {categoryDisplayName(category)} · 유저 예상 검색어 매칭
             </p>
-          ) : null}
-        </section>
+            <ul className="mt-3 flex flex-col gap-3">
+              {mappingHits.map((row) => (
+                <li key={row.id}>
+                  <BaggageSearchMappingAccordionRow
+                    row={row}
+                    open={!!mappingExpanded[row.id]}
+                    onToggle={() => toggleMappingRow(row)}
+                  />
+                </li>
+              ))}
+            </ul>
+            {mappingHits.length === 0 ? (
+              <p className="py-12 text-center text-[14px] leading-relaxed text-[#999999]">
+                검색 결과가 없습니다. 다른 검색어를 입력해 보세요.
+              </p>
+            ) : null}
+          </section>
+        ) : (
+          <section className="mt-6 pb-10" aria-labelledby="category-attention-heading">
+            <h2
+              id="category-attention-heading"
+              className="text-[17px] font-bold leading-tight text-black"
+            >
+              주의해야 할 규정
+            </h2>
+            <p className="mt-1 text-[13px] text-[#999999]">
+              품목을 누르면 안내 문구 상세가 펼쳐져요. 여러 개를 동시에 열어 비교할 수
+              있습니다.
+            </p>
+            <p className="mt-4 text-[14px] text-[#999999]">
+              전체 <span className="font-semibold text-black">{filtered.length}</span>건
+            </p>
+
+            <ul className="mt-3 flex flex-col gap-3">
+              {filtered.map((row) => (
+                <li key={row.id}>
+                  <BaggageAttentionAccordionRow
+                    row={row}
+                    open={!!accordionOpen[row.id]}
+                    onToggle={() => toggleAccordionRow(row)}
+                  />
+                </li>
+              ))}
+            </ul>
+
+            {filtered.length === 0 ? (
+              <p className="py-12 text-center text-[14px] leading-relaxed text-[#999999]">
+                조건에 맞는 품목이 없습니다. 검색어를 바꿔 보세요.
+              </p>
+            ) : null}
+          </section>
+        )}
       </div>
     </div>
   );

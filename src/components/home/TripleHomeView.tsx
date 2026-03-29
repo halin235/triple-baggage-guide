@@ -41,7 +41,7 @@ const CAROUSEL_SLIDES = [
   },
 ];
 
-const AI_USER_NAME = "하린";
+const AI_USER_NAME = "4조 7eers";
 
 export function TripleHomeView() {
   const router = useRouter();
@@ -52,7 +52,7 @@ export function TripleHomeView() {
     trip.isComplete && trip.startDate ? trip.startDate : DEMO_TRIP_START_ISO;
   const endISO = trip.isComplete && trip.endDate ? trip.endDate : DEMO_TRIP_END_ISO;
   const cityLabel =
-    trip.isComplete && trip.city ? `${trip.city.name} 여행` : "도쿄 여행";
+    trip.isComplete && trip.city ? `${trip.city.name} 여행` : "오사카 여행";
 
   const dateLine = useMemo(
     () => formatTripRangeWithWeekdayParen(startISO, endISO),
@@ -194,7 +194,7 @@ export function TripleHomeView() {
       <section className="bg-white px-5 pt-5">
         <div className="flex items-center gap-1.5">
           <h2 className="text-[15px] font-bold text-[#1A1A1A]">
-            {AI_USER_NAME}님을 위한 트리플 AI 추천
+            {AI_USER_NAME}를 위한 트리플 AI 추천
           </h2>
           <button type="button" className="text-[#B0B0B0]" aria-label="안내">
             <CircleHelp className="size-[18px]" strokeWidth={2} />
