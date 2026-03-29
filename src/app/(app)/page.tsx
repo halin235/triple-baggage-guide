@@ -1,20 +1,16 @@
-"use client";
-
-import { useEffect } from "react";
+import { Suspense } from "react";
 
 import HomeProhibitedBaggagePopup from "@/components/home/HomeProhibitedBaggagePopup";
-import { TripleHomeView } from "@/components/home/TripleHomeView";
-import { logAnalytics } from "@/lib/analytics";
+
+import { HomeMainClient } from "./HomeMainClient";
 
 export default function HomePage() {
-  useEffect(() => {
-    logAnalytics("home_page_view", { path: "/" });
-  }, []);
-
   return (
     <>
-      <HomeProhibitedBaggagePopup />
-      <TripleHomeView />
+      <Suspense fallback={<div>로딩 중...</div>}>
+        <HomeProhibitedBaggagePopup />
+      </Suspense>
+      <HomeMainClient />
     </>
   );
 }
