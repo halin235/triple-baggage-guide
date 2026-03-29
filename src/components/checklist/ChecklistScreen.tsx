@@ -1,198 +1,249 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
-
-import { SummaryActionHighlight } from "@/components/baggage/SummaryActionHighlight";
-import { CollapsibleChevronPanel } from "@/components/ui/CollapsibleChevronPanel";
+import { ChevronDown, ChevronLeft } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
-  CHECKLIST_INBOUND,
-  CHECKLIST_OUTBOUND,
-} from "@/constants/checklistData";
-import { logAnalytics } from "@/lib/analytics";
-import { findRegulationsForChecklistItem } from "@/lib/baggageSearch";
-import type { BaggageAirportCode } from "@/types/baggage";
-import type { BaggageRegulationItem } from "@/types/baggage";
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
-function RegulationPanel({ regs }: { regs: BaggageRegulationItem[] }) {
-  if (regs.length === 0) {
-    return (
-      <p className="text-[13px] leading-relaxed text-muted">
-        등록된 수하물 가이드가 없습니다. 검색에서 품목명을 확인해 보세요.
-      </p>
-    );
-  }
-  return (
-    <div className="space-y-3">
-      {regs.map((reg) => (
-        <div
-          key={reg.id}
-          className="rounded-lg border border-[#EEEEEE] bg-[#FAFAFA] p-3"
-        >
-          <p className="text-[12px] font-semibold uppercase tracking-wide text-muted">
-            매칭 품목 · {reg.itemName}
-          </p>
-          <div className="mt-2">
-            <SummaryActionHighlight text={reg.summaryAction} />
-          </div>
-          <p className="mt-2.5 text-[13px] leading-relaxed text-[#666666]">
-            {reg.detailGuide.replace(/🚨/g, "").trim()}
-          </p>
-          <dl className="mt-3 grid gap-1.5 text-[12px] text-[#666666]">
-            <div className="flex gap-1.5">
-              <dt className="shrink-0 font-semibold text-ink">기내</dt>
-              <dd>{reg.carryRegulation.cabin}</dd>
-            </div>
-            <div className="flex gap-1.5">
-              <dt className="shrink-0 font-semibold text-ink">위탁</dt>
-              <dd>{reg.carryRegulation.checked}</dd>
-            </div>
-          </dl>
-        </div>
-      ))}
-    </div>
-  );
+import {
+  BAGGAGE_CHECKLIST_C_JAPAN,
+  BAGGAGE_CHECKLIST_C_KOREA,
+} from "@/constants/baggageChecklistRegulationData";
+import { DEMO_TRIP_END_ISO, DEMO_TRIP_START_ISO } from "@/constants/demoTripDates";
+import { useTripDraft } from "@/context/TripDraftContext";
+import { logAnalytics } from "@/lib/analytics";
+import { resolveChecklistBaggageCSheet } from "@/lib/checklistBaggagePhase";
+import { todayDateOnly } from "@/lib/homeTripHeadline";
+import { CollapsibleChevronPanel } from "@/components/ui/CollapsibleChevronPanel";
+
+const BAGGAGE_SEARCH_ROW = "수하물 규정 확인하기";
+
+function formatSubtext(raw: string): string | null {
+  const t = raw.trim();
+  if (!t || t === "-") return null;
+  return t;
+}
+
+function formatGuideText(raw: string): string | null {
+  const t = raw.trim();
+  if (!t || t === "-") return null;
+  return t;
 }
 
 export function ChecklistScreen() {
-  /** 체크(완료) === 규정 패널 펼침 — 동일 상태로 연동 */
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const router = useRouter();
+  const trip = useTripDraft();
+  const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
 
-  const surfacePayload = useMemo(() => {
-    const all = [...CHECKLIST_OUTBOUND, ...CHECKLIST_INBOUND];
-    return all.map((r) => ({
-      checklistId: r.id,
-      label: r.label,
-      airport: r.airport,
-      regulationIds: findRegulationsForChecklistItem(r.label, {
-        airport: r.airport,
-      }).map((x) => x.id),
-    }));
-  }, []);
+  const startISO =
+    trip.isComplete && trip.startDate ? trip.startDate : DEMO_TRIP_START_ISO;
+  const endISO = trip.isComplete && trip.endDate ? trip.endDate : DEMO_TRIP_END_ISO;
+  const cityLabel = trip.isComplete && trip.city ? trip.city.name : "도쿄";
+
+  const sheetKind = useMemo(
+    () => resolveChecklistBaggageCSheet(todayDateOnly(), startISO, endISO),
+    [startISO, endISO]
+  );
+
+  const rows = useMemo(
+    () =>
+      sheetKind === "japan" ? BAGGAGE_CHECKLIST_C_JAPAN : BAGGAGE_CHECKLIST_C_KOREA,
+    [sheetKind]
+  );
+
+  /** 일본·한국 공통: '수하물 규정 확인하기' 행 제외 */
+  const displayRows = useMemo(
+    () => rows.filter((r) => r.itemName !== BAGGAGE_SEARCH_ROW),
+    [rows]
+  );
+
+  const { sectionTitle, sectionSubtitle } = useMemo(() => {
+    if (sheetKind === "japan") {
+      return {
+        sectionTitle: "출국 전 · 여행 준비물",
+        sectionSubtitle:
+          "품목 이름이나 왼쪽 원을 누르면 체크와 수하물 규정 안내가 함께 열립니다. 여러 개를 펼치면 각각 유지됩니다.",
+      };
+    }
+    return {
+      sectionTitle: "귀국 준비 · 수하물 규정",
+      sectionSubtitle:
+        "귀국 짐싸기 전 한국 입국 규정을 확인하세요. 품목을 누르면 안내 문구가 펼쳐집니다.",
+    };
+  }, [sheetKind]);
 
   useEffect(() => {
-    logAnalytics("checklist_page_view", { path: "/checklist" });
-  }, []);
-
-  useEffect(() => {
-    logAnalytics("checklist_regulation_surface", {
-      itemCount: surfacePayload.length,
-      withMatch: surfacePayload.filter((x) => x.regulationIds.length > 0)
-        .length,
-      detail: surfacePayload,
+    logAnalytics("checklist_page_view", {
+      path: "/checklist",
+      sheet: sheetKind,
+      startISO,
+      endISO,
     });
-  }, [surfacePayload]);
+  }, [sheetKind, startISO, endISO]);
 
-  const toggleItem = useCallback(
-    (id: string, label: string, airport: BaggageAirportCode) => {
-      let nextChecked = false;
-      setChecked((prev) => {
-        nextChecked = !prev[id];
-        return { ...prev, [id]: nextChecked };
-      });
-      const regs = findRegulationsForChecklistItem(label, { airport });
-      logAnalytics("checklist_item_toggle", {
-        checklistItemId: id,
-        label,
-        airport,
-        checked: nextChecked,
-        regulationPanelOpen: nextChecked,
-        matchedRegulationIds: regs.map((r) => r.id),
-        matchedCount: regs.length,
-      });
-    },
-    []
-  );
-
-  const Section = ({
-    title,
-    subtitle,
-    rows,
-  }: {
-    title: string;
-    subtitle: string;
-    rows: typeof CHECKLIST_OUTBOUND;
-  }) => (
-    <section className="rounded-2xl border border-line bg-white p-4 shadow-sm">
-      <h2 className="text-lg font-bold text-ink">{title}</h2>
-      <p className="mt-1 text-sm text-muted">{subtitle}</p>
-      <ul className="mt-4 divide-y divide-line">
-        {rows.map((row) => {
-          const isOn = !!checked[row.id];
-          const regs = findRegulationsForChecklistItem(row.label, {
-            airport: row.airport,
-          });
-          return (
-            <li key={row.id} className="py-3 first:pt-0">
-              <button
-                type="button"
-                role="checkbox"
-                aria-checked={isOn}
-                aria-expanded={isOn}
-                onClick={() => toggleItem(row.id, row.label, row.airport)}
-                className="flex w-full cursor-pointer gap-3 rounded-lg py-1 pl-0 pr-1 text-left transition-colors hover:bg-[#F7F8FA] active:bg-[#F0F2F5]"
-              >
-                <span
-                  className={`mt-1 flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                    isOn
-                      ? "border-triple-blue bg-triple-blue text-white"
-                      : "border-line bg-white"
-                  }`}
-                >
-                  {isOn ? (
-                    <span
-                      key={`${row.id}-v`}
-                      className="inline-flex animate-check-pop text-[15px] font-bold leading-none"
-                      aria-hidden
-                    >
-                      ✓
-                    </span>
-                  ) : null}
-                </span>
-                <span className="flex min-w-0 flex-1 items-start justify-between gap-2">
-                  <span className="min-w-0 pt-0.5 text-base font-medium text-ink">
-                    {row.label}
-                  </span>
-                  <ChevronDown
-                    className={`mt-1 size-5 shrink-0 text-muted transition-transform duration-300 ease-out ${
-                      isOn ? "rotate-180" : ""
-                    }`}
-                    strokeWidth={2}
-                    aria-hidden
-                  />
-                </span>
-              </button>
-
-              <CollapsibleChevronPanel open={isOn}>
-                <RegulationPanel regs={regs} />
-              </CollapsibleChevronPanel>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
+  const onBack = useCallback(() => {
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   return (
-    <div className="min-h-screen bg-card pb-28">
-      <header className="border-b border-line bg-white px-4 py-4">
-        <h1 className="text-xl font-bold text-ink">체크리스트</h1>
-        <p className="mt-1 text-sm text-muted">
-          품목 이름이나 왼쪽 원을 누르면 체크와 수하물 규정이 함께 열립니다.
-          여러 개를 체크하면 각각 펼쳐진 채로 유지됩니다.
+    <div className="min-h-screen bg-white pb-28">
+      <header className="border-b border-[#F0F0F0] bg-white px-4 pb-4 pt-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 flex-1 items-start gap-2">
+            <button
+              type="button"
+              onClick={onBack}
+              className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full text-[#1A1A1A] hover:bg-[#F5F5F5]"
+              aria-label="뒤로"
+            >
+              <ChevronLeft className="size-6" strokeWidth={2} aria-hidden />
+            </button>
+            <div className="min-w-0 pt-0.5">
+              <h1 className="text-[20px] font-bold leading-tight text-[#1A1A1A]">
+                체크리스트
+              </h1>
+              <p className="mt-0.5 text-[14px] text-[#8E8E8E]">{cityLabel}</p>
+            </div>
+          </div>
+          <Link
+            href="/schedule"
+            className="shrink-0 pt-1.5 text-[15px] font-semibold text-[#00C8B5]"
+            onClick={() =>
+              logAnalytics("checklist_header_edit", { target: "/schedule" })
+            }
+          >
+            편집
+          </Link>
+        </div>
+        <p className="mt-3 text-[13px] leading-relaxed text-[#8E8E8E]">
+          {sectionSubtitle}
         </p>
       </header>
-      <main className="space-y-4 px-4 py-4">
-        <Section
-          title="출국 전 · 여행 준비물"
-          subtitle="일본 입국(KIX) 기준 규정 매칭"
-          rows={CHECKLIST_OUTBOUND}
-        />
-        <Section
-          title="귀국 전 · 마무리"
-          subtitle="한국 입국(ICN) 기준 규정 매칭"
-          rows={CHECKLIST_INBOUND}
-        />
+
+      <main className="px-4 py-4">
+        <section className="rounded-2xl border border-[#EEEEEE] bg-white p-4 shadow-sm">
+          <h2 className="text-[17px] font-bold text-[#1A1A1A]">{sectionTitle}</h2>
+
+          <ul className="mt-4 divide-y divide-[#F2F2F2]">
+            {displayRows.flatMap((row) => {
+              const isOpen = !!openIds[row.id];
+              const sub = formatSubtext(row.itemSubtext);
+              const guide = formatGuideText(row.guideText);
+              const prefix: ReactNode[] = [];
+
+              if (sheetKind === "japan" && row.itemName === "세안 용품") {
+                prefix.push(
+                  <li
+                    key="subheader-jp-basic-packing"
+                    className="list-none py-2 pt-0"
+                  >
+                    <p className="text-[15px] font-bold tracking-tight text-[#1A1A1A]">
+                      기본 짐싸기
+                    </p>
+                  </li>
+                );
+              }
+
+              if (sheetKind === "japan" && row.itemName === "수건") {
+                prefix.push(
+                  <li
+                    key="subheader-jp-extra-items"
+                    className="list-none border-t border-[#F2F2F2] py-3 pt-4"
+                  >
+                    <p className="text-[15px] font-bold tracking-tight text-[#1A1A1A]">
+                      기본 짐싸기 아이템 추가
+                    </p>
+                  </li>
+                );
+              }
+
+              if (sheetKind === "korea" && row.itemName === "수건") {
+                prefix.push(
+                  <li
+                    key="subheader-kr-extra-items"
+                    className="list-none border-t border-[#F2F2F2] py-3 pt-4"
+                  >
+                    <p className="text-[15px] font-bold tracking-tight text-[#1A1A1A]">
+                      기본 짐싸기 아이템 추가
+                    </p>
+                  </li>
+                );
+              }
+
+              prefix.push(
+                <li key={row.id} className="py-3.5 first:pt-1">
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => {
+                      const nextOpen = !openIds[row.id];
+                      logAnalytics("checklist_baggage_row_toggle", {
+                        id: row.id,
+                        itemName: row.itemName,
+                        sheet: sheetKind,
+                        open: nextOpen,
+                      });
+                      setOpenIds((p) => ({ ...p, [row.id]: nextOpen }));
+                    }}
+                    className="flex w-full cursor-pointer gap-3 rounded-xl py-1 pl-0 pr-1 text-left transition-colors hover:bg-[#FAFAFA] active:bg-[#F5F5F5]"
+                  >
+                    <span
+                      className={`mt-1 flex size-[22px] shrink-0 items-center justify-center rounded-full border-2 ${
+                        isOpen
+                          ? "border-[#00C8B5] bg-[#E6FBF8]"
+                          : "border-[#E0E0E0] bg-white"
+                      }`}
+                      aria-hidden
+                    />
+                    <span className="flex min-w-0 flex-1 flex-col gap-1">
+                      <span className="text-[16px] font-semibold leading-snug text-[#1A1A1A]">
+                        {row.itemName}
+                      </span>
+                      {sub ? (
+                        <span className="text-[13px] leading-relaxed text-[#A8A8A8]">
+                          {sub}
+                        </span>
+                      ) : null}
+                    </span>
+                    <ChevronDown
+                      className={`mt-1 size-5 shrink-0 text-[#BDBDBD] transition-transform duration-300 ease-out ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  </button>
+
+                  <CollapsibleChevronPanel open={isOpen}>
+                    <div className="pl-[34px]">
+                      {guide ? (
+                        <p className="whitespace-pre-wrap text-[14px] leading-relaxed text-[#666666]">
+                          {guide}
+                        </p>
+                      ) : (
+                        <p className="text-[13px] text-[#A8A8A8]">
+                          별도 안내 문구가 없습니다. 수하물 검색에서 품목을 확인해 보세요.
+                        </p>
+                      )}
+                    </div>
+                  </CollapsibleChevronPanel>
+                </li>
+              );
+
+              return prefix;
+            })}
+          </ul>
+        </section>
       </main>
     </div>
   );
