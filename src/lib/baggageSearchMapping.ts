@@ -14,8 +14,7 @@ const MAIN_GRID_CATEGORIES = new Set<string>(
 
 /**
  * 여행 일정(출발~종료)과 오늘 날짜로 매핑 시트 선택.
- * 출국 전~여행 초반(시작일+1까지) → 일본행_검색어_매핑, D+2~종료 → 한국행_검색어_매핑
- * (체크리스트 C안 분기와 동일)
+ * D-7~D-Day → 일본행_검색어_매핑, D+1~종료 → 한국행_검색어_매핑 (`resolveChecklistBaggageCSheet`와 동일)
  */
 export function getSearchMappingStoreByCalendar(
   today: Date,
@@ -33,7 +32,7 @@ export type SearchMappingLeg = "japan" | "korea";
  *
  * 1) URL `tripPhase`가 있으면 **일정 CTA 의도 최우선**  
  *    (`departure` → 일본행, `return` → 한국행) — 여행 마무리 버튼은 항상 한국행.
- * 2) 없으면 달력 D+2 분기(`resolveChecklistBaggageCSheet`).
+ * 2) 없으면 달력 D-7~D-Day / D+1~종료 분기(`resolveChecklistBaggageCSheet`).
  */
 export function getSearchMappingStoreResolved(
   tripPhase: BaggageTripPhase | null,
