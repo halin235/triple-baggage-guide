@@ -30,9 +30,9 @@ export const EAN_JAPAN_PROHIBITED_POPUP_ITEMS: EanProhibitedPopupItem[] = [
 export const EAN_KOREA_PROHIBITED_POPUP_ITEMS: EanProhibitedPopupItem[] = [
   {
     id: "ean-kr-1",
-    itemName: "컵형 곤약젤리",
+    itemName: "곤약젤리",
     detailText:
-      "🚨 컵형 곤약젤리는 한국 반입 시 전량 압수돼요. 파우치(튜브)형 제품만 안전하게 가져올 수 있습니다.",
+      "🚨 컵 형태 곤약젤리는 한국 입국 시 전면 반입 금지입니다. 반드시 짜먹는 '튜브형' 제품만 구매해서 가져오세요.",
   },
   {
     id: "ean-kr-2",

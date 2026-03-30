@@ -10,24 +10,22 @@ import { getBaggageCategoryIcon } from "@/lib/baggageCategories";
 import {
   BAGGAGE_POPUP_DEV_FORCE_SHOW,
   BAGGAGE_POPUP_DEV_FORCE_VARIANT,
+  BAGGAGE_POPUP_DEV_SIMULATE_TODAY_AS_TRIP_D7,
   logBaggagePopupTestVersion,
   parsePopupTestQuery,
 } from "@/lib/baggagePopupDevTest";
 import {
   isBaggagePopupDismissed,
+  localCalendarDateBeforeTripStart,
   resolveBaggagePopupPhase,
   setBaggagePopupDismissed,
   type BaggagePopupKind,
 } from "@/lib/baggagePopupPhase";
+import { todayDateOnly } from "@/lib/homeTripHeadline";
 import {
   getProhibitedItemsForJapanPopup,
   getProhibitedItemsForKoreaPopup,
 } from "@/lib/baggageProhibitedList";
-
-function todayDateOnly(): Date {
-  const n = new Date();
-  return new Date(n.getFullYear(), n.getMonth(), n.getDate());
-}
 
 /** E안 시트에 카테고리 컬럼 없음 — 리스트 좌측 아이콘만 기존 그리드 카테고리 키로 맞춤 */
 const EAN_POPUP_ROW_ICON_CATEGORY: Record<string, string> = {
@@ -70,11 +68,20 @@ export default function HomeProhibitedBaggagePopup() {
       return;
     }
 
-    const resolved = resolveBaggagePopupPhase(
-      todayDateOnly(),
-      effectiveStart,
-      effectiveEnd
-    );
+    const today = BAGGAGE_POPUP_DEV_SIMULATE_TODAY_AS_TRIP_D7
+      ? localCalendarDateBeforeTripStart(effectiveStart, 7)
+      : todayDateOnly();
+
+    if (BAGGAGE_POPUP_DEV_SIMULATE_TODAY_AS_TRIP_D7 && process.env.NODE_ENV === "development") {
+      const y = today.getFullYear();
+      const mo = String(today.getMonth() + 1).padStart(2, "0");
+      const da = String(today.getDate()).padStart(2, "0");
+      console.info(
+        `[Baggage popup] DEV: 오늘을 여행 시작일 D-7로 가정 ${y}-${mo}-${da}, start=${effectiveStart}`
+      );
+    }
+
+    const resolved = resolveBaggagePopupPhase(today, effectiveStart, effectiveEnd);
     if (!resolved) {
       setOpen(false);
       setKind(null);

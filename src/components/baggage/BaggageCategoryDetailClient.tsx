@@ -6,9 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BaggageAttentionAccordionRow } from "@/components/baggage/BaggageAttentionAccordionRow";
 import { BaggageSearchMappingAccordionRow } from "@/components/baggage/BaggageSearchMappingAccordionRow";
-import { DEMO_TRIP_END_ISO, DEMO_TRIP_START_ISO } from "@/constants/demoTripDates";
-import { useTripDraft } from "@/context/TripDraftContext";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { useBaggageSearchMappingStore } from "@/hooks/useBaggageSearchMappingStore";
 import {
   isGridCategory,
   regulationsByCategoryAndAirport,
@@ -18,39 +16,12 @@ import {
   baggageSearchQueryString,
   parseTripPhaseParam,
 } from "@/lib/baggageRegulationSheets";
-import {
-  filterMappingRowsByGridCategory,
-  filterSearchMappingRows,
-  getSearchMappingStoreResolved,
-} from "@/lib/baggageSearchMapping";
-import { todayDateOnly } from "@/lib/homeTripHeadline";
+import { filterSearchMappingRows } from "@/lib/baggageSearchMapping";
 import type { BaggageAirportCode, BaggageRegulationItem } from "@/types/baggage";
 import type { BaggageSearchMappingRow } from "@/types/baggageSearchMapping";
 
 function parseAirport(raw: string | null): BaggageAirportCode {
   return raw === "ICN" ? "ICN" : "KIX";
-}
-
-const norm = (s: string) => s.toLowerCase().replace(/\s+/g, "");
-
-function filterByQuery(
-  list: BaggageRegulationItem[],
-  query: string
-): BaggageRegulationItem[] {
-  const q = norm(query.trim());
-  if (!q) return list;
-  return list.filter((row) => {
-    const hay = [
-      row.itemName,
-      row.summaryAction,
-      row.detailGuide,
-      row.carryRegulation.cabin,
-      row.carryRegulation.checked,
-    ]
-      .map(norm)
-      .join("|");
-    return hay.includes(q);
-  });
 }
 
 function categoryDisplayName(category: string) {
@@ -60,7 +31,6 @@ function categoryDisplayName(category: string) {
 export function BaggageCategoryDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tripDraft = useTripDraft();
   const airport = parseAirport(searchParams.get("airport"));
   const tripPhaseParam = searchParams.get("tripPhase");
   const tripPhase = useMemo(
@@ -76,25 +46,11 @@ export function BaggageCategoryDetailClient() {
     }
   }, [categoryRaw]);
 
-  const tripStartISO =
-    tripDraft.isComplete && tripDraft.startDate
-      ? tripDraft.startDate
-      : DEMO_TRIP_START_ISO;
-  const tripEndISO =
-    tripDraft.isComplete && tripDraft.endDate ? tripDraft.endDate : DEMO_TRIP_END_ISO;
-
-  const { mappingStore, mappingLeg } = useMemo(() => {
-    const resolved = getSearchMappingStoreResolved(
-      tripPhase,
-      todayDateOnly(),
-      tripStartISO,
-      tripEndISO
-    );
-    return { mappingStore: resolved.rows, mappingLeg: resolved.leg };
-  }, [tripPhase, tripStartISO, tripEndISO]);
+  const { mappingRows: mappingStore, mappingLeg } =
+    useBaggageSearchMappingStore(tripPhase);
 
   const [query, setQuery] = useState("");
-  const debouncedQuery = useDebouncedValue(query, 350);
+  const [searchFocused, setSearchFocused] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState<Record<string, boolean>>({});
   const [mappingExpanded, setMappingExpanded] = useState<Record<string, boolean>>({});
 
@@ -103,25 +59,16 @@ export function BaggageCategoryDetailClient() {
     return regulationsByCategoryAndAirport(airport, category, tripPhase);
   }, [airport, category, tripPhase]);
 
-  const mappingPool = useMemo(() => {
-    if (!isGridCategory(category)) return [];
-    return filterMappingRowsByGridCategory(mappingStore, category);
-  }, [mappingStore, category]);
+  const searchEngaged = searchFocused || query.trim().length > 0;
+  const hasQuery = query.trim().length > 0;
 
-  const searchActive = debouncedQuery.trim().length > 0;
-
+  /** 일정·tripPhase에 맞는 매핑 시트 전체 — 카테고리 페이지와 무관 */
   const mappingHits = useMemo(
-    () =>
-      searchActive
-        ? filterSearchMappingRows(mappingPool, debouncedQuery)
-        : [],
-    [mappingPool, debouncedQuery, searchActive]
+    () => (hasQuery ? filterSearchMappingRows(mappingStore, query) : []),
+    [mappingStore, query, hasQuery]
   );
 
-  const filtered = useMemo(
-    () => filterByQuery(baseList, debouncedQuery),
-    [baseList, debouncedQuery]
-  );
+  const filtered = baseList;
 
   useEffect(() => {
     if (!isGridCategory(category)) {
@@ -142,17 +89,18 @@ export function BaggageCategoryDetailClient() {
     logAnalytics("baggage_category_detail_search", {
       airport,
       category,
-      queryLen: debouncedQuery.length,
-      resultCount: searchActive ? mappingHits.length : filtered.length,
-      searchMode: searchActive ? "mapping_sheet" : "category_browse",
+      queryLen: query.length,
+      resultCount: hasQuery ? mappingHits.length : filtered.length,
+      searchMode: searchEngaged ? "mapping_sheet_full" : "category_browse",
     });
   }, [
     airport,
     category,
-    debouncedQuery,
+    query.length,
     filtered.length,
     mappingHits.length,
-    searchActive,
+    hasQuery,
+    searchEngaged,
   ]);
 
   useEffect(() => {
@@ -160,8 +108,8 @@ export function BaggageCategoryDetailClient() {
   }, [airport, category, tripPhase]);
 
   useEffect(() => {
-    if (!searchActive) setMappingExpanded({});
-  }, [searchActive]);
+    if (!searchEngaged) setMappingExpanded({});
+  }, [searchEngaged]);
 
   const onRowClick = useCallback(
     (row: BaggageRegulationItem) => {
@@ -259,36 +207,49 @@ export function BaggageCategoryDetailClient() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setSearchFocused(false)}
             placeholder="무엇을 가져가시나요?"
             className="h-12 w-full rounded-lg bg-[#EFEFEF] py-3 pl-11 pr-4 text-[16px] text-black placeholder:text-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6]/25"
-            aria-label="카테고리 내 검색"
+            aria-label="수하물 규정 검색 (매핑 테이블 전체)"
           />
         </div>
 
-        {searchActive ? (
+        {searchEngaged ? (
           <section className="mt-6 pb-10" aria-live="polite">
             <h2 className="text-[17px] font-bold leading-tight text-black">검색 결과</h2>
             <p className="mt-1 text-[13px] text-[#999999]">
               {mappingLeg === "japan"
                 ? "일본행_검색어_매핑 테이블"
                 : "한국행_검색어_매핑 테이블"}
-              · {categoryDisplayName(category)} · 유저 예상 검색어 매칭
+              · 전체 품목 · 소분류·유저 예상 검색어 OR 매칭
             </p>
-            <ul className="mt-3 flex flex-col gap-3">
-              {mappingHits.map((row) => (
-                <li key={row.id}>
-                  <BaggageSearchMappingAccordionRow
-                    row={row}
-                    open={!!mappingExpanded[row.id]}
-                    onToggle={() => toggleMappingRow(row)}
-                  />
-                </li>
-              ))}
-            </ul>
-            {mappingHits.length === 0 ? (
-              <p className="py-12 text-center text-[14px] leading-relaxed text-[#999999]">
-                검색 결과가 없습니다. 다른 검색어를 입력해 보세요.
+            {!hasQuery ? (
+              <p className="mt-6 rounded-xl border border-[#EEEEEE] bg-[#FAFBFC] px-4 py-10 text-center text-[14px] leading-relaxed text-[#666666]">
+                카테고리와 관계없이 매핑 테이블 전체에서 검색합니다.
+                <br />
+                키워드를 입력해 보세요.
               </p>
+            ) : null}
+            {hasQuery ? (
+              <>
+                <ul className="mt-3 flex flex-col gap-3">
+                  {mappingHits.map((row) => (
+                    <li key={row.id}>
+                      <BaggageSearchMappingAccordionRow
+                        row={row}
+                        open={!!mappingExpanded[row.id]}
+                        onToggle={() => toggleMappingRow(row)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+                {mappingHits.length === 0 ? (
+                  <p className="py-12 text-center text-[14px] leading-relaxed text-[#999999]">
+                    검색 결과가 없습니다. 다른 검색어를 입력해 보세요.
+                  </p>
+                ) : null}
+              </>
             ) : null}
           </section>
         ) : (

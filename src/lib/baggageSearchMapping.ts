@@ -54,7 +54,7 @@ export function getSearchMappingStoreResolved(
   };
 }
 
-/** 카테고리 상세 화면: 그리드 카테고리에 맞는 매핑 행만 */
+/** 매핑 행을 그리드 카테고리로 좁힐 때 (카테고리 상세 상단 검색은 전체 시트 사용) */
 export function filterMappingRowsByGridCategory(
   rows: BaggageSearchMappingRow[],
   category: string
@@ -78,19 +78,31 @@ export function getSearchMappingStore(
   return airport === "ICN" ? BAGGAGE_SEARCH_MAPPING_KOREA : BAGGAGE_SEARCH_MAPPING_JAPAN;
 }
 
+/** 검색어 전체 + 공백/쉼표 분리 토큰 (OR 매칭용, 빈 토큰 제외) */
+function searchMappingQueryTokens(query: string): string[] {
+  const raw = query.trim().toLowerCase();
+  if (!raw) return [];
+  const fromSplit = raw.split(/[\s,，、]+/g).map((s) => s.trim()).filter(Boolean);
+  const out = new Set<string>([raw, ...fromSplit]);
+  return [...out];
+}
+
 /**
- * `유저 예상 검색어`·`소분류`에 검색어(소문자·trim)가 부분 문자열로 포함되면 매칭.
- * (엑셀 컬럼과 동일한 의미: searchAliases = 유저 예상 검색어, itemTitle = 소분류)
+ * `유저 예상 검색어`·소분류(품목명) 각각에 대해, 아래 중 하나라도 성공하면 매칭(OR).
+ * - 전체 입력 문구가 해당 필드에 부분 문자열로 포함
+ * - 입력을 공백·쉼표로 나눈 토큰 중 하나가 어느 한 필드에 포함
  */
 export function filterSearchMappingRows(
   rows: BaggageSearchMappingRow[],
   query: string
 ): BaggageSearchMappingRow[] {
-  const userInput = query.trim().toLowerCase();
-  if (userInput.length === 0) return [];
+  const tokens = searchMappingQueryTokens(query);
+  if (tokens.length === 0) return [];
   return rows.filter((row) => {
     const expectedKeywords = String(row.searchAliases ?? "").toLowerCase();
-    const subCategory = String(row.itemTitle ?? "").toLowerCase();
-    return expectedKeywords.includes(userInput) || subCategory.includes(userInput);
+    const itemTitle = String(row.itemTitle ?? "").toLowerCase();
+    return tokens.some(
+      (tok) => expectedKeywords.includes(tok) || itemTitle.includes(tok)
+    );
   });
 }

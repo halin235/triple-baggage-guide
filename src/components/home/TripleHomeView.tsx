@@ -41,7 +41,7 @@ const CAROUSEL_SLIDES = [
   },
 ];
 
-const AI_USER_NAME = "4조 7eers";
+const AI_USER_NAME = "박일정";
 
 export function TripleHomeView() {
   const router = useRouter();
@@ -194,7 +194,7 @@ export function TripleHomeView() {
       <section className="bg-white px-5 pt-5">
         <div className="flex items-center gap-1.5">
           <h2 className="text-[15px] font-bold text-[#1A1A1A]">
-            {AI_USER_NAME}를 위한 트리플 AI 추천
+            {AI_USER_NAME}님을 위한 트리플 AI 추천
           </h2>
           <button type="button" className="text-[#B0B0B0]" aria-label="안내">
             <CircleHelp className="size-[18px]" strokeWidth={2} />

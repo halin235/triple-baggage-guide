@@ -37,7 +37,6 @@ export const BAGGAGE_SEARCH_MAPPING_JAPAN: BaggageSearchMappingRow[] = [
 
 /** 엑셀 시트: 한국행_검색어_매핑 테이블 */
 export const BAGGAGE_SEARCH_MAPPING_KOREA: BaggageSearchMappingRow[] = [
-  { id: "kr-search-0", category: "전자제품", itemTitle: "무선 고데기", searchAliases: "고데기, 충전식 고데기, 배터리 고데기, 보다나 무선, 다이슨 에어스트레이트, 휴대용 헤어롤, 매직기, 봉고데기, 판고데기, 헤어 아이롱, 드라이기, 고데기 선 있는거, 에어랩, 글램팜, 유닉스 무선, 에어스트레이트, 코랄, 휴대용 고데기", summaryTag: "[반입 불가: 현지 폐기]", detailGuide: "🚨 배터리 일체형 무선 고데기는 일본 공항 보안 검색 시 기내/위탁 모두 반입이 금지될 수 있습니다. 유선 제품 구매를 권장해요." },
   { id: "kr-search-1", category: "전자제품", itemTitle: "일반 전자제품", searchAliases: "아이폰, 갤럭시, 공기계, 맥북, 그램, 아이패드, 갤탭, 킨들,닌텐도 스위치, 플스, 에어팟, 버즈, 헤드셋 ", summaryTag: "[선택: 기내/위탁 가능]", detailGuide: "카메라, 노트북 등 일반 가전은 반입 가능합니다. 단, 리튬 배터리가 포함된 기기는 가급적 기내에 휴대하세요." },
   { id: "kr-search-2", category: "전자제품", itemTitle: "돼지코", searchAliases: "110V 어댑터, 일본 플러그, 변환잭, 11자 플러그, 다이소 돼지코, 변환 잭, 콘센트 젠더", summaryTag: "[선택: 기내/위탁 가능]", detailGuide: "일본에서 사용하던 변환 플러그는 규제 없이 기내나 위탁 수하물로 모두 가져오실 수 있습니다." },
   { id: "kr-search-3", category: "전자제품", itemTitle: "멀티어댑터", searchAliases: "여행용 어댑터, 멀티콘센트, 멀티콘센츠, 전세계 공용 플러그, 주파집, 만능 어댑터, 여행용 멀티탭, 해외용 어댑터", summaryTag: "[선택: 기내/위탁 가능]", detailGuide: "일본에서 사용하던 변환 플러그는 규제 없이 기내나 위탁 수하물로 모두 가져오실 수 있습니다." },

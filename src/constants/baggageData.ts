@@ -879,23 +879,6 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-컵형-곤약젤리-50",
-    itemName: "컵형 곤약젤리",
-    category: "식품",
-    carryRegulation: {
-      cabin: "반입 불가(압수·폐기 위험)",
-      checked: "반입 불가(압수·폐기 위험)",
-    },
-    summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 컵형 곤약젤리는 한국 반입 시 전량 압수돼요. 파우치(튜브)형 제품만 안전하게 가져올 수 있습니다.",
-    route: {
-      airports: ["ICN"],
-      directionLabel: "🇰🇷 한국행",
-    },
-    cardTone: "danger",
-    excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
-  },
-  {
     id: "icn-식품-치즈-버터-51",
     itemName: "치즈, 버터",
     category: "식품",

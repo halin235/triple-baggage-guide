@@ -51,6 +51,18 @@ export function resolveBaggagePopupPhase(
   return null;
 }
 
+/**
+ * 로컬 달력 기준, 여행 시작일에서 `daysBeforeStart`일 전의 자정에 해당하는 Date.
+ * (`resolveBaggagePopupPhase`의 D-7 = `daysBeforeStart === 7`과 동일한 날짜)
+ */
+export function localCalendarDateBeforeTripStart(
+  tripStartISO: string,
+  daysBeforeStart: number
+): Date {
+  const start = stripToLocalDate(parseISODateLocal(tripStartISO));
+  return addCalendarDays(start, -daysBeforeStart);
+}
+
 export function baggagePopupDismissStorageKey(
   tripStartISO: string,
   tripEndISO: string,
