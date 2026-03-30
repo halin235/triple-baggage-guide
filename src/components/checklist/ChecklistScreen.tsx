@@ -44,7 +44,7 @@ export function ChecklistScreen() {
   const startISO =
     trip.isComplete && trip.startDate ? trip.startDate : DEMO_TRIP_START_ISO;
   const endISO = trip.isComplete && trip.endDate ? trip.endDate : DEMO_TRIP_END_ISO;
-  const cityLabel = trip.isComplete && trip.city ? trip.city.name : "도쿄";
+  const cityLabel = trip.isComplete && trip.city ? trip.city.name : "오사카";
 
   const sheetKind = useMemo(
     () => resolveChecklistBaggageCSheet(todayDateOnly(), startISO, endISO),
