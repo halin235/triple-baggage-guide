@@ -10,55 +10,19 @@ import type { BaggageRegulationItem } from "@/types/baggage";
 export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
   {
     id: "kix-전자제품-무선-고데기-1",
-    itemName: "충전식 무선 고대기",
+    itemName: "무선 고데기",
     category: "전자제품",
     carryRegulation: {
       cabin: "반입 불가(압수·폐기 위험)",
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 현지 폐기]",
-    detailGuide: "🚨 충전식 무선 고데기는 기내/위탁 모두 반입 불가예요. 일본 공항에서 압수될 수 있으니 유선 제품을 챙기세요.",
+    detailGuide: "🚨 충전식 무선 고데기는 기내/위탁 모두 반입 불가함. 일본 공항에서 압수될 수 있으니 유선 제품을 챙길 것.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
     },
     cardTone: "danger",
-    excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
-  },
-  {
-    id: "kix-전자제품-스마트폰-1b",
-    itemName: "스마트폰",
-    category: "전자제품",
-    carryRegulation: {
-      cabin: "기내 휴대 권장",
-      checked: "분실·파손 방지 위해 기내 권장",
-    },
-    summaryAction: "[기내 휴대 권장]",
-    detailGuide:
-      "스마트폰은 기내에 직접 휴대하는 것이 안전해요. 보안 검색 시 별도 트레이에 올려 검사받으세요.",
-    route: {
-      airports: ["KIX"],
-      directionLabel: "🇯🇵 일본행",
-    },
-    cardTone: "info",
-    excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
-  },
-  {
-    id: "kix-전자제품-노트북-1c",
-    itemName: "노트북",
-    category: "전자제품",
-    carryRegulation: {
-      cabin: "기내 휴대 권장",
-      checked: "파손·분실 방지 위해 기내 권장",
-    },
-    summaryAction: "[기내 휴대 권장]",
-    detailGuide:
-      "노트북은 기내 휴대를 권장합니다. 보안 검색 시 본체를 꺼내 별도 트레이에 올리는 절차가 있을 수 있어요.",
-    route: {
-      airports: ["KIX"],
-      directionLabel: "🇯🇵 일본행",
-    },
-    cardTone: "info",
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
@@ -70,7 +34,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "단순 돼지코는 위탁/기내 모두 가능해요. 짐 무게를 줄이려면 캐리어에 넣는 것을 추천합니다.",
+    detailGuide: "단순 돼지코는 위탁/기내 모두 가능함. 짐 무게를 줄이려면 캐리어에 넣는 것을 추천함.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -87,7 +51,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 / 배터리형은 기내]",
-    detailGuide: "단순 어댑터는 위탁이 가능하지만, 배터리 내장형은 반드시 기내에 직접 들고 타야 합니다.",
+    detailGuide: "단순 어댑터는 위탁이 가능하지만, 배터리 내장형은 반드시 기내에 기내 휴대 필수.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -104,7 +68,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "충전 케이블은 제한 없이 반입 가능해요. 캐리어에 넣어 편리하게 이동하세요. 작은 젠더류는 분실 위험이 있으니 파우치에 담아 위탁 수하물로 보내는 것이 편리합니다.",
+    detailGuide: "충전 케이블은 제한 없이 반입 가능함. 캐리어에 넣어 편리하게 이동하세요. 작은 젠더류는 분실 위험이 있으니 파우치에 담아 위탁 수하물로 보내는 것이 편리함.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -121,7 +85,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "본체는 위탁 가능",
     },
     summaryAction: "[본체 위탁/배터리 기내]",
-    detailGuide: "드론 본체는 캐리어에 넣어도 되지만, 리튬 배터리는 반드시 분리해서 직접 들고 타세요.",
+    detailGuide: "드론 본체는 캐리어에 넣어도 되지만, 리튬 배터리는 반드시 분리해서 직접 기내 휴대 필수.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -138,7 +102,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 금지",
     },
     summaryAction: "[필수: 기내 휴대]",
-    detailGuide: "보조배터리는 위탁 수하물(캐리어)에 넣을 수 없어요. 반드시 가방에 넣어 직접 들고 타세요.카메라 등 기기에서 분리한 리튬 배터리는 무조건 기내에 지참해야 화재 사고를 방지합니다.",
+    detailGuide: "보조배터리는 위탁 수하물(캐리어)에 넣을 수 없음. 반드시 가방에 넣어 직접 기내 휴대 필수.카메라 등 기기에서 분리한 리튬 배터리는 무조건 기내에 지참해야 화재 사고를 방지합니다.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -155,7 +119,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "항공사·현지 세관 최종 확인",
     },
     summaryAction: "[주의: 액체형은 100ml 이하]",
-    detailGuide: "알약은 자유롭지만, 시럽 등 액체 상비약은 100ml를 넘으면 처방전이 있어야 기내 반입이 가능합니다.",
+    detailGuide: "알약은 자유롭지만, 시럽 등 액체 상비약은 100ml를 넘으면 처방전이 있어야 기내 반입이 가능함.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -172,7 +136,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 금지: 처벌 주의]",
-    detailGuide: "🚨 수다페드 성분은 일본 내 처벌 대상이에요. 한국 상비약이라도 성분을 꼭 확인하고 가져가지 마세요.",
+    detailGuide: "🚨 수다페드 성분은 일본 내 처벌 대상임. 한국 상비약이라도 성분을 꼭 확인하고 반입 금지.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -189,7 +153,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 금지: 처벌 주의]",
-    detailGuide: "🚨 아드레랄 등 특정 각성 성분은 일본 내 반입 시 구속 위험이 있어요. 절대 소지하지 마세요.",
+    detailGuide: "🚨 아드레랄 등 특정 각성 성분은 일본 내 반입 시 구속 위험 있음. 절대 소지 금지.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -206,7 +170,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 금지: 처벌 주의]",
-    detailGuide: "🚨 대마 성분(CBD) 제품은 일본에서 엄격히 금지돼요. 적발 시 입국 거부 및 처벌을 받을 수 있습니다.",
+    detailGuide: "🚨 대마 성분(CBD) 제품은 일본에서 엄격히 금지됨. 적발 시 입국 거부 및 처벌을 받을 수 있습니다.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -223,7 +187,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 필수",
     },
     summaryAction: "[필수: 위탁 수하물]",
-    detailGuide: "🚨 커터칼은 보안 검색 시 즉시 압수됩니다. 공항에서 버리지 않도록 반드시 캐리어에 넣어주세요.",
+    detailGuide: "🚨 커터칼은 보안 검색 시 즉시 압수됨. 공항에서 버리지 않도록 반드시 캐리어에 담을 것.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -257,7 +221,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "한도 내 조건부 위탁(택일)",
     },
     summaryAction: "[선택: 기내/위탁 가능]",
-    detailGuide: "손톱깎이는 기내와 위탁 모두 가능해요. 비행기 안에서 쓸 일이 없다면 캐리어에 넣으세요.",
+    detailGuide: "손톱깎이는 기내와 위탁 모두 가능함. 비행기 안에서 쓸 일이 없다면 캐리어에 넣으세요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -334,15 +298,15 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-화장품-미스트-18",
-    itemName: "미스트",
+    id: "kix-화장품-마스크팩-모델링팩-가루형-18",
+    itemName: "마스크팩, 모델링팩(가루형)",
     category: "화장품",
     carryRegulation: {
-      cabin: "한도 내 조건부 기내",
-      checked: "한도 내 조건부 위탁(택일)",
+      cabin: "항공사·현지 세관 최종 확인",
+      checked: "항공사·현지 세관 최종 확인",
     },
-    summaryAction: "[주의: 위탁/기내 택 1]",
-    detailGuide: "미스트 등 인체용 스프레이는 500ml 이하 1개만 가능해요. 기내나 위탁 중 한 곳에만 담으세요.",
+    summaryAction: "[내용물 확인 가능성 있음]",
+    detailGuide: "가루 제형은 용량 제한 없이 기내 반입이 가능하나, 보안 검색 시 내용물 확인(개봉 검사)을 요청받을 수 있습니다. 가급적 성분 표시가 명확한 전용 용기에 담아주세요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -351,7 +315,24 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-도구-살충제-19",
+    id: "kix-화장품-미스트-19",
+    itemName: "미스트",
+    category: "화장품",
+    carryRegulation: {
+      cabin: "한도 내 조건부 기내",
+      checked: "한도 내 조건부 위탁(택일)",
+    },
+    summaryAction: "[주의: 위탁/기내 택 1]",
+    detailGuide: "미스트 등 인체용 스프레이는 500ml 이하 1개만 가능함. 기내나 위탁 중 한 곳에만 담으세요.",
+    route: {
+      airports: ["KIX"],
+      directionLabel: "🇯🇵 일본행",
+    },
+    cardTone: "warning",
+    excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
+  },
+  {
+    id: "kix-도구-살충제-20",
     itemName: "살충제",
     category: "도구",
     carryRegulation: {
@@ -359,7 +340,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 살충제나 페인트 스프레이 등 위험물은 기내 및 위탁 모두 반입이 금지됩니다.",
+    detailGuide: "🚨 살충제나 페인트 스프레이 등 위험물은 기내 및 위탁 모두 반입이 금지됨.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -368,7 +349,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-화장품-향수-20",
+    id: "kix-화장품-향수-21",
     itemName: "향수",
     category: "화장품",
     carryRegulation: {
@@ -376,7 +357,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "한도 내 조건부 위탁(택일)",
     },
     summaryAction: "[선택: 기내/위탁 가능]",
-    detailGuide: "향수는 2온스(약 56ml)까지만 면세예요. 오드콜로뉴나 오드뚜왈렛은 이 합계에서 제외됩니다.",
+    detailGuide: "향수는 2온스(약 56ml)까지만 면세예요. 오드콜로뉴나 오드뚜왈렛은 이 합계에서 제외됨.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -385,7 +366,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-자산-짝퉁-브랜드-21",
+    id: "kix-자산-짝퉁-브랜드-22",
     itemName: "짝퉁 브랜드",
     category: "자산",
     carryRegulation: {
@@ -393,7 +374,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 압수]",
-    detailGuide: "🚨 일본 세관은 위조품 단속이 매우 강력해요. 적발 시 전량 압수 및 폐기 처리되니 주의하세요.",
+    detailGuide: "🚨 일본 세관은 위조품 단속이 매우 강력함. 적발 시 전량 압수 및 폐기 처리되니 주의 필요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -402,7 +383,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-자산-명품-가방-22",
+    id: "kix-자산-명품-가방-23",
     itemName: "명품 가방",
     category: "자산",
     carryRegulation: {
@@ -410,7 +391,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 가능(면세·검역·신고는 별도)",
     },
     summaryAction: "[면세 한도 확인 필수]",
-    detailGuide: "구입 물품 합계가 20만 엔을 넘으면 신고 대상이에요. 가장 비싼 물건부터 면세 적용을 확인하세요.",
+    detailGuide: "구입 물품 합계가 20만 엔을 넘으면 신고 대상임. 가장 비싼 물건부터 면세 적용을 확인 필요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -419,7 +400,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-자산-현금-23",
+    id: "kix-자산-현금-24",
     itemName: "현금",
     category: "자산",
     carryRegulation: {
@@ -436,7 +417,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-소시지-육포-24",
+    id: "kix-식품-소시지-육포-25",
     itemName: "소시지, 육포",
     category: "식품",
     carryRegulation: {
@@ -444,7 +425,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 과태료 주의]",
-    detailGuide: "🚨 소시지는 가공 방식과 무관하게 반입이 금지돼요. 적발 시 높은 과태료가 부과될 수 있습니다. \n🚨 육포는 진공포장이라도 반입이 안 돼요. 적발 시 최대 최대 300만 엔의 과태료가 나올 수 있습니다.",
+    detailGuide: "🚨 소시지는 가공 방식과 무관하게 반입이 금지됨. 적발 시 높은 과태료가 부과될 수 있음. \n🚨 육포는 진공포장이라도 반입 불가함. 적발 시 최대 최대 300만 엔의 과태료가 나올 수 있습니다.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -453,7 +434,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-생과일-25",
+    id: "kix-식품-생과일-26",
     itemName: "생과일",
     category: "식품",
     carryRegulation: {
@@ -461,7 +442,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 생과일은 병해충 위험으로 반입할 수 없어요. 현지에서 다 드시거나 공항에서 폐기해야 합니다.",
+    detailGuide: "🚨 생과일은 병해충 위험으로 반입할 수 없음. 현지에서 다 드시거나 공항에서 폐기해야 합니다.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -470,7 +451,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-생채소-26",
+    id: "kix-식품-생채소-27",
     itemName: "생채소",
     category: "식품",
     carryRegulation: {
@@ -478,7 +459,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 신선 채소류는 검역 문제로 반입이 엄격히 제한됩니다. 가급적 지참하지 마세요.",
+    detailGuide: "🚨 신선 채소류는 검역 문제로 반입이 엄격히 제한됨. 가급적 지참하지 마세요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -487,7 +468,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-김치-27",
+    id: "kix-식품-김치-28",
     itemName: "김치",
     category: "식품",
     carryRegulation: {
@@ -495,7 +476,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 필수",
     },
     summaryAction: "[필수: 위탁 수하물]",
-    detailGuide: "김치는 액체류로 분류되어 100ml를 넘으면 기내 반입이 안 돼요. 꼭 위탁 수하물(캐리어)에 넣어주세요.간사이 지역(오사카 등)의 대형 마트나 편의점에서도 한국 김치를 쉽게 구하실 수 있으니, 짐 무게가 걱정되신다면 현지 구매도 좋은 방법입니다.",
+    detailGuide: "김치는 액체류로 분류되어 100ml를 넘으면 기내 반입 불가함. 꼭 위탁 수하물(캐리어)에 담을 것.간사이 지역(오사카 등)의 대형 마트나 편의점에서도 한국 김치를 쉽게 구하실 수 있으니, 짐 무게가 걱정되신다면 현지 구매도 좋은 방법임.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -504,7 +485,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-라면-28",
+    id: "kix-식품-라면-29",
     itemName: "라면",
     category: "식품",
     carryRegulation: {
@@ -521,7 +502,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-치즈-버터-29",
+    id: "kix-식품-치즈-버터-30",
     itemName: "치즈, 버터",
     category: "식품",
     carryRegulation: {
@@ -529,7 +510,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "항공사·현지 세관 최종 확인",
     },
     summaryAction: "[선택: 위탁 수하물]",
-    detailGuide: "가공된 치즈와 버터는 위탁 수하물로 가능해요. 신선도 유지를 위해 보냉 포장을 권장합니다.",
+    detailGuide: "가공된 치즈와 버터는 위탁 수하물로 가능함. 신선도 유지를 위해 보냉 포장을 권장합니다.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -538,25 +519,24 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-젓갈-30",
+    id: "kix-식품-젓갈-31",
     itemName: "젓갈",
     category: "식품",
     carryRegulation: {
       cabin: "기내 반입 불가",
       checked: "위탁 필수",
     },
-    summaryAction: "[검역 필수: 증명서 확인]",
-    detailGuide:
-      "젓갈류 수산물은 검역 증명서·포장 상태에 따라 통관 여부가 달라질 수 있어요. 기내 반입은 제한되니 위탁 시 밀봉을 꼼꼼히 해 주세요.",
+    summaryAction: "[필수: 위탁 수하물]",
+    detailGuide: "젓갈도 액체류로 분류됨. 기내 반입은 안 되니 꼼꼼히 밀봉하여 캐리어에 넣으세요.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
     },
-    cardTone: "info",
+    cardTone: "danger",
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "kix-식품-건어물-31",
+    id: "kix-식품-건어물-32",
     itemName: "건어물",
     category: "식품",
     carryRegulation: {
@@ -564,7 +544,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "항공사·현지 세관 최종 확인",
     },
     summaryAction: "[선택: 위탁 수하물]",
-    detailGuide: "완전히 말린 건어물은 반입 가능합니다. 냄새가 나지 않도록 잘 포장해서 위탁으로 보내세요.",
+    detailGuide: "완전히 말린 건어물은 반입 가능함. 냄새가 나지 않도록 잘 포장해서 위탁으로 보낼 것.",
     route: {
       airports: ["KIX"],
       directionLabel: "🇯🇵 일본행",
@@ -573,7 +553,41 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
   },
   {
-    id: "icn-전자제품-리튬-배터리-32",
+    id: "kix-자산-금-악세사리-33",
+    itemName: "금, 악세사리",
+    category: "자산",
+    carryRegulation: {
+      cabin: "항공사·현지 세관 최종 확인",
+      checked: "항공사·현지 세관 최종 확인",
+    },
+    summaryAction: "[중량 및 금액 확인 필수]",
+    detailGuide: "순도 90% 이상의 금괴·금제품은 1kg 초과 시 반드시 세관 신고 필수. 착용 중인 금 장신구(목걸이 등)를 포함하여 총 가액이 20만 엔을 넘으면 자진 신고 대상임.",
+    route: {
+      airports: ["KIX"],
+      directionLabel: "🇯🇵 일본행",
+    },
+    cardTone: "warning",
+    excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
+  },
+  {
+    id: "kix-식품-단백질-파우더-34",
+    itemName: "단백질 파우더",
+    category: "식품",
+    carryRegulation: {
+      cabin: "한도 내 조건부 기내",
+      checked: "한도 내 조건부 위탁(택일)",
+    },
+    summaryAction: "[선택: 기내/위탁 가능]",
+    detailGuide: "가루 제형의 식품은 용량 제한 없이 기내 반입이 가능함. 단, 보안 검색 시 '내용물 확인(개봉 검사 등)'을 요청받을 수 있으니 가급적 개봉되지 않은 새 제품이나 성분 표시가 명확한 전용 용기에 담아 가시는 것을 권장함.",
+    route: {
+      airports: ["KIX"],
+      directionLabel: "🇯🇵 일본행",
+    },
+    cardTone: "info",
+    excelSourceSheet: "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
+  },
+  {
+    id: "icn-전자제품-리튬-배터리-35",
     itemName: "리튬 배터리",
     category: "전자제품",
     carryRegulation: {
@@ -590,7 +604,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-전자제품-돼지코-충전-케이블-usb-젠더-33",
+    id: "icn-전자제품-돼지코-충전-케이블-usb-젠더-36",
     itemName: "돼지코, 충전 케이블, USB 젠더",
     category: "전자제품",
     carryRegulation: {
@@ -598,7 +612,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "단순 돼지코와 충전 케이블, USB 젠더류는 기내와 위탁 수하물 모두 반입이 가능하므로 분실 방지를 위해 파우치에 담아 캐리어(위탁 수하물)에 넣는 것을 추천드려요.",
+    detailGuide: "단순 돼지코와 충전 케이블, USB 젠더류는 기내와 위탁 수하물 모두 반입이 가능하므로 분실 방지를 위해 파우치에 담아 캐리어(위탁 수하물)에 넣는 것을 추천함.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -607,7 +621,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-전자제품-멀티어댑터-34",
+    id: "icn-전자제품-멀티어댑터-37",
     itemName: "멀티어댑터",
     category: "전자제품",
     carryRegulation: {
@@ -615,7 +629,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 / 배터리형은 기내]",
-    detailGuide: "단순 어댑터는 위탁이 가능하지만, 배터리 내장형은 반드시 기내에 직접 들고 타야 합니다.",
+    detailGuide: "단순 어댑터는 위탁이 가능하지만, 배터리 내장형은 반드시 기내에 기내 휴대 필수.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -624,7 +638,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-전자제품-드론-35",
+    id: "icn-전자제품-드론-38",
     itemName: "드론",
     category: "전자제품",
     carryRegulation: {
@@ -632,7 +646,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "본체는 위탁 가능",
     },
     summaryAction: "[본체 위탁/배터리 기내]",
-    detailGuide: "드론 본체는 캐리어에 넣어도 되지만, 리튬 배터리는 반드시 분리해서 직접 들고 타세요.",
+    detailGuide: "드론 본체는 캐리어에 넣어도 되지만, 리튬 배터리는 반드시 분리해서 직접 기내 휴대 필수.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -641,7 +655,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-배터리-보조-배터리-36",
+    id: "icn-배터리-보조-배터리-39",
     itemName: "보조 배터리",
     category: "배터리",
     carryRegulation: {
@@ -649,7 +663,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 금지",
     },
     summaryAction: "[필수: 기내 휴대]",
-    detailGuide: "보조배터리는 위탁 수하물(캐리어)에 넣을 수 없어요. 반드시 가방에 넣어 직접 들고 타세요.",
+    detailGuide: "보조배터리는 위탁 수하물(캐리어)에 넣을 수 없음. 반드시 가방에 넣어 직접 기내 휴대 필수.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -658,7 +672,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-의약품-상비약-37",
+    id: "icn-의약품-상비약-40",
     itemName: "상비약",
     category: "의약품",
     carryRegulation: {
@@ -666,7 +680,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "항공사·현지 세관 최종 확인",
     },
     summaryAction: "[주의: 액체형은 100ml 이하]",
-    detailGuide: "알약은 자유롭지만, 시럽 등 액체 상비약은 100ml를 넘으면 처방전이 있어야 기내 반입이 가능합니다.",
+    detailGuide: "알약은 자유롭지만, 시럽 등 액체 상비약은 100ml를 넘으면 처방전이 있어야 기내 반입이 가능함.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -675,7 +689,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-도구-커터칼-38",
+    id: "icn-도구-커터칼-41",
     itemName: "커터칼",
     category: "도구",
     carryRegulation: {
@@ -683,7 +697,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 필수",
     },
     summaryAction: "[필수: 위탁 수하물]",
-    detailGuide: "🚨 커터칼은 보안 검색 시 즉시 압수됩니다. 공항에서 버리지 않도록 반드시 캐리어에 넣어주세요.",
+    detailGuide: "🚨 커터칼은 보안 검색 시 즉시 압수됨. 공항에서 버리지 않도록 반드시 캐리어에 담을 것.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -692,7 +706,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-도구-가위-39",
+    id: "icn-도구-가위-42",
     itemName: "가위",
     category: "도구",
     carryRegulation: {
@@ -709,7 +723,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-도구-손톱깎이-40",
+    id: "icn-도구-손톱깎이-43",
     itemName: "손톱깎이",
     category: "도구",
     carryRegulation: {
@@ -717,7 +731,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "한도 내 조건부 위탁(택일)",
     },
     summaryAction: "[선택: 기내/위탁 가능]",
-    detailGuide: "손톱깎이는 기내와 위탁 모두 가능해요. 비행기 안에서 쓸 일이 없다면 캐리어에 넣으세요.",
+    detailGuide: "손톱깎이는 기내와 위탁 모두 가능함. 비행기 안에서 쓸 일이 없다면 캐리어에 넣으세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -726,7 +740,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-도구-라이터-41",
+    id: "icn-도구-라이터-44",
     itemName: "라이터",
     category: "도구",
     carryRegulation: {
@@ -734,7 +748,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 금지",
     },
     summaryAction: "[필수: 1인 1개 휴대]",
-    detailGuide: "라이터는 위탁 수하물 금지 품목이에요. 몸에 지니고 1인당 1개만 비행기에 타실 수 있습니다.",
+    detailGuide: "라이터는 위탁 수하물 금지 품목이에요. 몸에 지니고 1인당 1개만 비행기에 타실 수 있습니다. 위탁 수하물 반입 불가.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -743,15 +757,15 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-주류-담배-액상-니코틴-42",
-    itemName: "액상 니코틴",
+    id: "icn-주류-담배-전자담배-액상-니코틴-45",
+    itemName: "전자담배, 액상 니코틴",
     category: "주류/담배",
     carryRegulation: {
       cabin: "보안·액체 규정 준수 시 기내 가능",
       checked: "위탁 가능(면세·검역·신고는 별도)",
     },
     summaryAction: "[20ml 이하 면세]",
-    detailGuide: "전자담배 액상은 20ml까지만 면세예요. 줄기/뿌리 추출 니코틴 등 성분에 따라 규정이 다를 수 있으니 \"니코틴 함량 및 성분 확인\"이 필요해요.",
+    detailGuide: "전자담배는 100ml 이하만 기내수하물로 반입 가능, 위탁 수하물로 반입 불가함.\n전자담배 액상은 20ml까지만 면세예요. 줄기/뿌리 추출 니코틴 등 성분에 따라 규정이 다를 수 있으니 \"니코틴 함량 및 성분 확인\"이 필요함.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -760,7 +774,41 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-화장품-스킨-43",
+    id: "icn-주류-담배-일반-담배-연초-46",
+    itemName: "일반 담배 (연초)",
+    category: "주류/담배",
+    carryRegulation: {
+      cabin: "보안·액체 규정 준수 시 기내 가능",
+      checked: "위탁 가능(면세·검역·신고는 별도)",
+    },
+    summaryAction: "[면세 한도 확인 필수]",
+    detailGuide: "한국 입국 시 담배 면세는 1인당 200개비(보통 1보루)까지임. 만 19세 미만 미성년자는 담배 면세 혜택이 없으며, 한도 초과 시 세관 신고 후 세금을 납부해야 합니다.",
+    route: {
+      airports: ["ICN"],
+      directionLabel: "🇰🇷 한국행",
+    },
+    cardTone: "info",
+    excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
+  },
+  {
+    id: "icn-주류-담배-사케-위스키-와인-47",
+    itemName: "사케, 위스키, 와인",
+    category: "주류/담배",
+    carryRegulation: {
+      cabin: "보안·액체 규정 준수 시 기내 가능",
+      checked: "위탁 가능(면세·검역·신고는 별도)",
+    },
+    summaryAction: "[면세 한도 확인 필수]",
+    detailGuide: "한국 입국 시 주류 면세는 ①전체 2병 이하 ②합계 용량 2L 이하 ③총 가격 $400 이하라는 3가지 조건을 모두 만족해야 합니다. 이 중 하나라도 초과하면 세관 신고 및 세금 납부 대상임.",
+    route: {
+      airports: ["ICN"],
+      directionLabel: "🇰🇷 한국행",
+    },
+    cardTone: "info",
+    excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
+  },
+  {
+    id: "icn-화장품-스킨-48",
     itemName: "스킨",
     category: "화장품",
     carryRegulation: {
@@ -768,7 +816,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "100ml를 넘는 대용량 스킨은 기내 반입이 안 돼요. 미리 위탁 수하물(캐리어)에 넣어주세요.",
+    detailGuide: "100ml를 넘는 대용량 스킨은 기내 반입 불가함. 미리 위탁 수하물(캐리어)에 담을 것.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -777,7 +825,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-화장품-치약-44",
+    id: "icn-화장품-치약-49",
     itemName: "치약",
     category: "화장품",
     carryRegulation: {
@@ -785,7 +833,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "치약도 액체류로 분류되어 100ml를 넘으면 기내 반입이 안 돼요. 큰 치약은 캐리어에 넣으세요.",
+    detailGuide: "치약도 액체류로 분류되어 100ml를 넘으면 기내 반입 불가함. 큰 치약은 캐리어에 넣으세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -794,7 +842,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-화장품-샴푸-45",
+    id: "icn-화장품-샴푸-50",
     itemName: "샴푸",
     category: "화장품",
     carryRegulation: {
@@ -811,7 +859,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-화장품-미스트-46",
+    id: "icn-화장품-미스트-51",
     itemName: "미스트",
     category: "화장품",
     carryRegulation: {
@@ -819,7 +867,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "한도 내 조건부 위탁(택일)",
     },
     summaryAction: "[주의: 위탁/기내 택 1]",
-    detailGuide: "미스트 등 인체용 스프레이는 500ml 이하 1개만 가능해요. 기내나 위탁 중 한 곳에만 담으세요.",
+    detailGuide: "미스트 등 인체용 스프레이는 500ml 이하 1개만 가능함. 기내나 위탁 중 한 곳에만 담으세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -828,7 +876,24 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-도구-살충제-47",
+    id: "icn-화장품-마스크팩-모델링팩-가루형-52",
+    itemName: "마스크팩, 모델링팩(가루형)",
+    category: "화장품",
+    carryRegulation: {
+      cabin: "항공사·현지 세관 최종 확인",
+      checked: "항공사·현지 세관 최종 확인",
+    },
+    summaryAction: "[위탁 수하물 권장]",
+    detailGuide: "가루 제형은 기내 반입 시 보안 검색(개봉 검의)이 까다로울 수 있으므로, 가급적 위탁 수하물(캐리어)로 보내는 것을 추천함.",
+    route: {
+      airports: ["ICN"],
+      directionLabel: "🇰🇷 한국행",
+    },
+    cardTone: "info",
+    excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
+  },
+  {
+    id: "icn-도구-살충제-53",
     itemName: "살충제",
     category: "도구",
     carryRegulation: {
@@ -836,7 +901,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 살충제나 페인트 스프레이 등 위험물은 기내 및 위탁 모두 반입이 금지됩니다.",
+    detailGuide: "🚨 살충제나 페인트 스프레이 등 위험물은 기내 및 위탁 모두 반입이 금지됨.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -845,7 +910,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-자산-달러-48",
+    id: "icn-자산-달러-54",
     itemName: "달러",
     category: "자산",
     carryRegulation: {
@@ -862,7 +927,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-자산-명품-시계-49",
+    id: "icn-자산-명품-시계-55",
     itemName: "명품 시계",
     category: "자산",
     carryRegulation: {
@@ -879,7 +944,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-치즈-버터-51",
+    id: "icn-식품-치즈-버터-56",
     itemName: "치즈, 버터",
     category: "식품",
     carryRegulation: {
@@ -887,7 +952,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 가능(면세·검역·신고는 별도)",
     },
     summaryAction: "[검역 필수: 증명서 확인]",
-    detailGuide: "유제품은 검역 대상이지만, 가공된 치즈나 버터의 경우 소량은 성분과 함량에 따라 검역관 판단 하에 통과 가능해요.",
+    detailGuide: "유제품은 검역 대상이지만, 가공된 치즈나 버터의 경우 소량은 성분과 함량에 따라 검역관 판단 하에 통과 가능함.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -896,7 +961,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-라면-52",
+    id: "icn-식품-라면-57",
     itemName: "라면",
     category: "식품",
     carryRegulation: {
@@ -904,7 +969,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "항공사·현지 세관 최종 확인",
     },
     summaryAction: "[주의: 위탁/기내 가능]",
-    detailGuide: "라면 스프 속 육류 성분으로 인해 봉지라면과 컵라면 모두 반입이 제한되거나 검역 대상이 될 수 있으니, 검역에서 적발되는 사례가 늘고 있습니다. 특히 고기 알갱이가 든 컵라면 주의하세요.",
+    detailGuide: "라면 스프 속 육류 성분으로 인해 봉지라면과 컵라면 모두 반입이 제한되거나 검역 대상이 될 수 있으니, 검역에서 적발되는 사례가 늘고 있습니다. 특히 고기 알갱이가 든 컵라면 주의 필요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -913,7 +978,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-젓갈-53",
+    id: "icn-식품-젓갈-58",
     itemName: "젓갈",
     category: "식품",
     carryRegulation: {
@@ -921,7 +986,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 가능(면세·검역·신고는 별도)",
     },
     summaryAction: "[검역 필수: 증명서 확인]",
-    detailGuide: "젓갈류 수산물은 '5kg 미만 & 10만 원' 정부 발행 검역 증명서가 있어야 통관돼요. 없다면 폐기 대상입니다.",
+    detailGuide: "젓갈류 수산물은 '5kg 미만 & 10만 원' 정부 발행 검역 증명서가 있어야 통관돼요. 없다면 폐기 대상임.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -930,7 +995,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-말린-생선-54",
+    id: "icn-식품-말린-생선-59",
     itemName: "말린 생선",
     category: "식품",
     carryRegulation: {
@@ -938,7 +1003,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "위탁 가능(면세·검역·신고는 별도)",
     },
     summaryAction: "[검역 필수: 증명서 확인]",
-    detailGuide: "말린 생선류는 검역 증명서 소지 여부에 따라 반입이 결정됩니다. 미소지 시 폐기될 수 있어요.",
+    detailGuide: "말린 생선류는 검역 증명서 소지 여부에 따라 반입이 결정됨. 미소지 시 폐기될 수 있음.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -947,7 +1012,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-소시지-55",
+    id: "icn-식품-소시지-60",
     itemName: "소시지",
     category: "식품",
     carryRegulation: {
@@ -955,7 +1020,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 과태료 주의]",
-    detailGuide: "🚨 소시지는 가공 방식과 무관하게 반입이 금지돼요. 적발 시 높은 과태료가 부과될 수 있습니다.",
+    detailGuide: "🚨 소시지는 가공 방식과 무관하게 반입이 금지됨. 적발 시 높은 과태료가 부과될 수 있음.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -964,7 +1029,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-육포-56",
+    id: "icn-식품-육포-61",
     itemName: "육포",
     category: "식품",
     carryRegulation: {
@@ -972,7 +1037,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 과태료 주의]",
-    detailGuide: "🚨 육포는 진공포장이라도 반입이 안 돼요. 적발 시 최대 1,000만 원의 과태료가 나올 수 있습니다.",
+    detailGuide: "🚨 육포는 진공포장이라도 반입 불가함. 적발 시 최대 1,000만 원의 과태료가 나올 수 있습니다.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -981,7 +1046,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-생과일-57",
+    id: "icn-식품-생과일-62",
     itemName: "생과일",
     category: "식품",
     carryRegulation: {
@@ -989,7 +1054,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 생과일은 병해충 위험으로 반입할 수 없어요. 현지에서 다 드시거나 공항에서 폐기해야 합니다.",
+    detailGuide: "🚨 생과일은 병해충 위험으로 반입할 수 없음. 현지에서 다 드시거나 공항에서 폐기해야 합니다.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -998,7 +1063,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-생채소-58",
+    id: "icn-식품-생채소-63",
     itemName: "생채소",
     category: "식품",
     carryRegulation: {
@@ -1006,7 +1071,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[반입 불가: 전량 폐기]",
-    detailGuide: "🚨 신선 채소류는 검역 문제로 반입이 엄격히 제한됩니다. 가급적 지참하지 마세요.",
+    detailGuide: "🚨 신선 채소류는 검역 문제로 반입이 엄격히 제한됨. 가급적 지참하지 마세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -1015,7 +1080,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-김치-59",
+    id: "icn-식품-김치-64",
     itemName: "김치",
     category: "식품",
     carryRegulation: {
@@ -1032,7 +1097,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-곤약젤리-60",
+    id: "icn-식품-곤약젤리-65",
     itemName: "곤약젤리",
     category: "식품",
     carryRegulation: {
@@ -1040,7 +1105,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "반입 불가(압수·폐기 위험)",
     },
     summaryAction: "[주의: 컵형 반입 금지]",
-    detailGuide: "🚨 컵 형태 곤약젤리는 한국 입국 시 전면 반입 금지입니다. 반드시 짜먹는 '튜브형' 제품만 구매해서 가져오세요.",
+    detailGuide: "🚨 컵 형태 곤약젤리는 한국 입국 시 전면 반입 금지임. 반드시 짜먹는 '튜브형' 제품만 구매해서 가져오세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -1049,7 +1114,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-치즈-버터-61",
+    id: "icn-식품-치즈-버터-66",
     itemName: "치즈, 버터",
     category: "식품",
     carryRegulation: {
@@ -1057,7 +1122,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "가공된 유제품은 반입 가능합니다. 다만 변질 우려가 있으니 아이스팩 포장 후 위탁 수하물로 보내세요.",
+    detailGuide: "가공된 유제품은 반입 가능함. 다만 변질 우려가 있으니 아이스팩 포장 후 위탁 수하물로 보낼 것.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
@@ -1066,25 +1131,24 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-젓갈-62",
+    id: "icn-식품-젓갈-67",
     itemName: "젓갈",
     category: "식품",
     carryRegulation: {
       cabin: "기내 반입 불가",
       checked: "위탁 필수",
     },
-    summaryAction: "[검역 필수: 증명서 확인]",
-    detailGuide:
-      "젓갈류 수산물은 '5kg 미만 & 10만 원' 정부 발행 검역 증명서가 있어야 통관돼요. 없다면 폐기 대상입니다. 기내 반입은 액체류 규정상 제한될 수 있으니 위탁 시 밀봉을 꼼꼼히 해 주세요.",
+    summaryAction: "[필수: 위탁 수하물]",
+    detailGuide: "젓갈류는 액체류 규정에 걸려 기내 반입이 안 됨. 냄새가 새지 않게 꼼꼼히 밀봉하여 캐리어에 넣으세요.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",
     },
-    cardTone: "info",
+    cardTone: "warning",
     excelSourceSheet: "카테고리별 분류_한국 인천공항 수하물 데이터",
   },
   {
-    id: "icn-식품-건어물-63",
+    id: "icn-식품-건어물-68",
     itemName: "건어물",
     category: "식품",
     carryRegulation: {
@@ -1092,7 +1156,7 @@ export const BAGGAGE_REGULATIONS: BaggageRegulationItem[] = [
       checked: "대용량·분실 방지 위해 위탁 권장",
     },
     summaryAction: "[추천: 위탁 수하물]",
-    detailGuide: "멸치, 쥐포 등 완전히 말린 수산가공품은 반입이 가능합니다. 가급적 위탁 수하물로 보내시는 것이 좋습니다.",
+    detailGuide: "멸치, 쥐포 등 완전히 말린 수산가공품은 반입이 가능함. 가급적 위탁 수하물로 보내시는 것이 좋습니다.",
     route: {
       airports: ["ICN"],
       directionLabel: "🇰🇷 한국행",

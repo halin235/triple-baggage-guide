@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync-excel": "node scripts/dump_excel_to_json.mjs && python scripts/gen_baggage_ts.py && node scripts/extract_checklist_c_sheet.mjs && node scripts/extract_search_mapping_from_dump.mjs && node scripts/extract_ean_popup_from_dump.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
@@ -23,6 +24,7 @@
     "eslint-config-next": "^14.2.18",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "xlsx": "^0.18.5"
   }
 }

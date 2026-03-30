@@ -28,7 +28,7 @@ export const BAGGAGE_CHECKLIST_C_JAPAN: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기",
     "itemName": "기초 화장품",
     "itemSubtext": "스킨, 로션, 선크림, 미스트",
-    "guideText": "100ml 초과 액체류는 위탁 수하물 전용, 스프레이는 500ml 이하 1개만 가능."
+    "guideText": "100ml 초과 액체류는 위탁 수하물 전용, 스프레이는 인체용에 한해 500ml 이하 1개만 휴대/위탁 가능."
   },
   {
     "id": "c-jp-3",
@@ -70,7 +70,7 @@ export const BAGGAGE_CHECKLIST_C_JAPAN: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기",
     "itemName": "데이터 이용 준비",
     "itemSubtext": "유심 eSIM, 포켓 와이파이",
-    "guideText": "포켓 와이파이는 기내수하물만 가능."
+    "guideText": "[위탁 불가] 포켓 와이파이는 리튬 배터리 포함으로 반드시 기내 수하물로만 가능."
   },
   {
     "id": "c-jp-9",
@@ -258,7 +258,7 @@ export const BAGGAGE_CHECKLIST_C_JAPAN: BaggageChecklistRegulationRow[] = [
     "id": "c-jp-35",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "주류",
-    "itemSubtext": "사케, 위스키, 와인, 소주, 맥주",
+    "itemSubtext": "위스키, 와인, 소주, 맥주, 사케",
     "guideText": "일본 입국 시 주류 면세는 3병(병당 760ml)까지. 한도 넘길 시 세관 신고 필요."
   },
   {
@@ -279,25 +279,32 @@ export const BAGGAGE_CHECKLIST_C_JAPAN: BaggageChecklistRegulationRow[] = [
     "id": "c-jp-38",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "기념품(스낵류)",
-    "itemSubtext": "말린 생선, 버터, 치즈, 컵형 곤약젤리, 소시지, 육포, 생과일, 생채소 등",
-    "guideText": "고액 과태료 주의: 육포·소시지(포장 무관 불가), 생과일·채소(반입 제한).\n압수 및 폐기: 컵형 곤약젤리, 치즈·버터(증명서 필수)."
+    "itemSubtext": "말린 생선, 버터, 치즈, 컵형 곤약젤리, 소시지, 육포, 생과일, 생채소, 단백질 파우더 등",
+    "guideText": "[고액 과태료] 육포·소시지(포장 무관 불가), 생과일·채소(반입 제한).\n[압수/폐기] 컵형 곤약젤리, 치즈·버터(증명서 필수).\n[기내 수하물] 가루 제형의 식품은 용량 제한 없이 기내 반입이 가능하지만, 보안 검색 시 '내용물 확인(개봉 검사 등)'을 요청받을 수 있으니 가급적 개봉되지 않은 새 제품이나 성분 표시가 명확한 전용 용기에 담아 가시는 것을 권장합니다."
   },
   {
     "id": "c-jp-39",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "악세서리",
-    "itemSubtext": "명품 가방, 명품 시계, 짝퉁 브랜드",
-    "guideText": "$800 초과 시 자진 신고 (관세 30% 감면 혜택). 위조품 단속 매우 강력, 적발 시 전량 압수 및 폐기."
+    "itemSubtext": "목걸이, 귀걸이, 반지",
+    "guideText": "착용 중인 제품을 포함하여 합계액이 $800를 초과하면 신고하세요. 자진 신고 시 관세 30% 감면 혜택이 있습니다."
   },
   {
     "id": "c-jp-40",
     "location": "기본 짐싸기 아이템 추가",
-    "itemName": "기타(주의/금지 물품)",
-    "itemSubtext": "수다페드, 아드레랄, CBD(대마 성분)오일, 살충제",
-    "guideText": "수다페드(처벌), 아드레랄(구속), CBD(입국거부)"
+    "itemName": "명품",
+    "itemSubtext": "명품 가방, 명품 시계, 짝퉁 브랜드",
+    "guideText": "$800 초과 시 자진 신고 (관세 30% 감면 혜택). 위조품 단속 매우 강력, 적발 시 전량 압수 및 폐기."
   },
   {
     "id": "c-jp-41",
+    "location": "기본 짐싸기 아이템 추가",
+    "itemName": "기타(주의/금지 물품)",
+    "itemSubtext": "수다페드, 아드레랄, CBD(대마 성분)오일, 살충제",
+    "guideText": "[처벌 주의] 수다페드(슈도에페드린) 성분 포함 상비약은 일본 내 반입 금지 및 처벌 대상임. 지참 전 성분을 반드시 확인 필요.\n[구속 위험] 아드레랄 등 각성 성분이 포함된 약물은 일본 내 반입 시 구속될 위험이 있습니다. 절대 소지 금지.\n[입국 거부] CBD(대마 성분) 오일 및 관련 제품은 일본 입국 거부 사유가 됨. 적발 시 엄격히 처벌되니 유의 필수."
+  },
+  {
+    "id": "c-jp-42",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "전자 기기",
     "itemSubtext": "드론",
@@ -311,42 +318,42 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기",
     "itemName": "세안 용품",
     "itemSubtext": "칫솔, 치약, 클렌징 폼",
-    "guideText": "치약/폼 등 액체·젤류는 용기당 100ml 초과 시 기내 반입이 금지되니 반드시 위탁 수하물로 부치세요."
+    "guideText": "액체·젤류는 100ml 초과 시 기내 반입 불가."
   },
   {
     "id": "c-kr-2",
     "location": "기본 짐싸기",
     "itemName": "기초 화장품",
     "itemSubtext": "스킨, 로션, 선크림, 미스트",
-    "guideText": "100ml 초과 액체류는 위탁 전용이며, 미스트(스프레이)는 인체용에 한해 500ml 이하 1개만 휴대/위탁 가능합니다."
+    "guideText": "100ml 초과 액체류는 위탁 전용, 스프레이는 인체용에 한해 500ml 이하 1개만 휴대/위탁 가능."
   },
   {
     "id": "c-kr-3",
     "location": "기본 짐싸기",
     "itemName": "샤워용품",
     "itemSubtext": "샴푸, 린스, 바디워시",
-    "guideText": "대용량 세정제는 기내 반입이 불가하므로 캐리어(위탁)에 담아주세요. 면세점 구매품은 밀봉 상태를 유지해야 합니다."
+    "guideText": "액체·젤류는 100ml 초과 시 기내 반입 불가."
   },
   {
     "id": "c-kr-4",
     "location": "기본 짐싸기",
     "itemName": "비상약",
     "itemSubtext": "두통약,지사제, 해열제 등",
-    "guideText": "일반 상비약은 반입 가능하나, 일본에서 산 'EVE' 등 특정 약물은 성분 확인이 필요할 수 있습니다. (시럽제는 100ml 규정 적용)"
+    "guideText": "일반 상비약은 반입 가능하나, 일본에서 산 'EVE' 등 특정 약물은 성분 확인 필요. (시럽제는 100ml 규정 적용)"
   },
   {
     "id": "c-kr-5",
     "location": "기본 짐싸기",
     "itemName": "상의",
     "itemSubtext": "-",
-    "guideText": "의류는 반입 제한이 없으나, 고가의 브랜드 의류 구매 시 면세 한도($800) 계산에 포함해야 합니다."
+    "guideText": "의류는 반입 제한이 없으나, 고가의 브랜드 의류 구매 시 면세 한도($800) 계산에 포함."
   },
   {
     "id": "c-kr-6",
     "location": "기본 짐싸기",
     "itemName": "하의",
     "itemSubtext": "-",
-    "guideText": "의류는 반입 제한이 없으나, 고가의 브랜드 의류 구매 시 면세 한도($800) 계산에 포함해야 합니다."
+    "guideText": "의류는 반입 제한이 없으나, 고가의 브랜드 의류 구매 시 면세 한도($800) 계산에 포함."
   },
   {
     "id": "c-kr-7",
@@ -360,28 +367,28 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기",
     "itemName": "데이터 이용 준비",
     "itemSubtext": "유심 eSIM, 포켓 와이파이",
-    "guideText": "포켓 와이파이는 리튬 배터리가 포함되어 있어 위탁 수하물이 절대 불가하며, 반드시 기내에 직접 들고 타야 합니다."
+    "guideText": "[위탁 불가] 포켓 와이파이는 리튬 배터리 포함으로 반드시 기내 수하물로만 가능."
   },
   {
     "id": "c-kr-9",
     "location": "기본 짐싸기",
     "itemName": "충전기",
     "itemSubtext": "충전 케이블, 젠더",
-    "guideText": "단순 케이블과 젠더는 기내/위탁 모두 가능합니다. 분실 방지를 위해 파우치에 넣어 위탁 수하물로 보내는 것을 추천합니다."
+    "guideText": "기내/위탁 모두 가능. 분실 방지를 위해 파우치에 넣어 위탁 수하물 추천."
   },
   {
     "id": "c-kr-10",
     "location": "기본 짐싸기",
     "itemName": "변환 플러스",
     "itemSubtext": "돼지코, 여행용 멀티어댑터",
-    "guideText": "단순 어댑터는 제한 없으나, 배터리 내장형 멀티어댑터는 반드시 기내 수하물로 휴대해야 합니다."
+    "guideText": "단순형은 제한 없음. 배터리 내장형 어댑터는 반드시 기내 수하물로 휴대."
   },
   {
     "id": "c-kr-11",
     "location": "기본 짐싸기",
     "itemName": "작은 가방",
     "itemSubtext": "여행 중 간단한 소지품 넣고 다닐 가방",
-    "guideText": "가방 자체는 규제가 없으나, 가방 안에 라이터나 배터리 등 위탁 금지 품목이 들어있지 않은지 확인하세요."
+    "guideText": "가방 자체는 규제가 없으나, 내부에 라이터나 배터리 등 위탁 금지 품목이 들어있지 않은지 확인 필수."
   },
   {
     "id": "c-kr-12",
@@ -395,42 +402,42 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "색조 화장품",
     "itemSubtext": "-",
-    "guideText": "립스틱, 팩트 등 고체형은 자유롭지만, 파운데이션이나 마스카라 등 액상/젤 타입은 100ml 기내 반입 규정을 준수하세요."
+    "guideText": "립스틱, 팩트 등 고체형은 자유롭지만, 파운데이션이나 마스카라 등 액상/젤 타입은 100ml 초과 시 기내 반입 불가."
   },
   {
     "id": "c-kr-14",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "여성용품",
     "itemSubtext": "-",
-    "guideText": "기내 및 위탁 수하물 모두 자유롭게 반입 가능합니다."
+    "guideText": "기내 및 위탁 수하물 모두 자유롭게 반입 가능."
   },
   {
     "id": "c-kr-15",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "면도용품",
     "itemSubtext": "면도기, 면도크림",
-    "guideText": "전기/충전식 면도기는 기내 휴대가 안전하며, 100ml 초과 면도크림(스프레이)은 반드시 위탁 수하물로 보내야 합니다."
+    "guideText": "전기/충전식 면도기는 기내 휴대가 안전, 면도날 6cm 이상 위탁 전용. 100ml 초과 면도크림(스프레이)은 위탁 필수."
   },
   {
     "id": "c-kr-16",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "거울",
     "itemSubtext": "-",
-    "guideText": "파손 위험이 있으니 옷 사이에 잘 감싸서 위탁 수하물로 보내거나 기내에 휴대하세요."
+    "guideText": "파손 위험이 있으니 옷 사이에 감싸서 위탁 수하물로 보내거나 기내 휴대 권장."
   },
   {
     "id": "c-kr-17",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "헤어드라이기",
     "itemSubtext": "고데기, 무선 고데기 등",
-    "guideText": "[주의] 배터리 일체형 무선 고데기는 일본 공항 보안 검색 시 기내/위탁 모두 압수될 수 있으니 유선 제품을 권장합니다."
+    "guideText": "일반 유선 고데기는 기내 및 위탁 수하물 모두 가능. 단, 무선 고데기는 리튬 배터리 화재 위험으로 가급적 기내 수하물로 휴대 권장."
   },
   {
     "id": "c-kr-18",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "헤어용품",
     "itemSubtext": "빗, 왁스, 헤어에센스",
-    "guideText": "액상 에센스나 젤 타입 왁스는 100ml 초과 시 기내 반입 불가입니다. 대용량 제품은 반드시 캐리어에 넣으세요."
+    "guideText": "액상 에센스나 젤 타입 왁스는 100ml 초과 시 기내 반입 불가."
   },
   {
     "id": "c-kr-19",
@@ -458,21 +465,21 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "보조배터리",
     "itemSubtext": "리튬 배터리",
-    "guideText": "위탁 수하물(캐리어) 금지 품목 1순위입니다. 반드시 기내에 휴대하세요. (160Wh 초과 제품은 반입 불가)"
+    "guideText": "[위탁 불가] 160Wh 초과 반입 불가. 반드시 직접 들고 타야 함 (기내 전용)."
   },
   {
     "id": "c-kr-23",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "삼각대, 셀카봉",
     "itemSubtext": "",
-    "guideText": "끝이 날카롭지 않은 접이식은 기내 반입이 가능하나, 길이가 긴 경우 항공사별로 위탁을 요구할 수 있습니다."
+    "guideText": "접이식은 기내 가능. 길이가 긴 제품은 항공사 확인 후 위탁 수하물 권장."
   },
   {
     "id": "c-kr-24",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "비상식량",
     "itemSubtext": "컵라면, 컵밥, 고추장 튜브, 봉지 라면, 젓갈 등",
-    "guideText": "[주의] 육류 성분(스프 내 소고기 등)이 포함된 라면/컵밥은 원칙적으로 검역 대상이며 반입이 제한될 수 있습니다."
+    "guideText": "[주의] 스프 내 육류 성분 포함 시 반입 제한. 성분 표기를 미리 확인 필요."
   },
   {
     "id": "c-kr-25",
@@ -486,7 +493,7 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "필기구, 문구류",
     "itemSubtext": "연필, 수첩, 커터칼, 가위",
-    "guideText": "🚨 커터칼은 보안 검색 시 즉시 압수됩니다. 공항에서 버리지 않도록 반드시 캐리어에 넣어주세요.\n가위는 날 길이가 6cm 이하일 때만 기내 반입이 돼요. 큰 가위는 미리 캐리어에 넣으세요."
+    "guideText": "커터칼은 보안 검색 시 즉시 압수, 위탁만 가능. 가위는 날이 6cm 초과 시 반드시 위탁 수하물로 처리."
   },
   {
     "id": "c-kr-27",
@@ -534,22 +541,22 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "id": "c-kr-33",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "현금/자산",
-    "itemSubtext": "달러",
-    "guideText": "해외 취득 물품 총액 $800 초과 시 자진 신고하세요. 미화 1만 달러 초과 현금 지참 시에도 반드시 신고가 필요합니다."
+    "itemSubtext": "달러, 금",
+    "guideText": "$800 초과 시 자진 신고 (관세 30% 감면 혜택). 미화 1만 달러 초과 현금 지참 시 반드시 세관 신고 필수."
   },
   {
     "id": "c-kr-34",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "주류",
     "itemSubtext": "사케, 위스키, 와인, 소주, 맥주",
-    "guideText": "면세 한도는 1인당 2병(합계 2L 이하, $400 이하)입니다. 이를 초과하면 세관 신고서에 반드시 체크해야 합니다."
+    "guideText": "주류 면세는 ①전체 2병 이하 ②합계 용량 2L 이하 ③총 가격 $400 이하라는 3가지 조건을 모두 충족 시 면세."
   },
   {
     "id": "c-kr-35",
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "담배",
-    "itemSubtext": "일반 연초, 액상 니코틴",
-    "guideText": "-"
+    "itemSubtext": "일반 연초, 전자담배 (액상), 라이터",
+    "guideText": "전자담배는 100ml 이하만 기내수하물로 반입 가능, 위탁 수하물로 반입 불가.\n일반 연초 1보루(200개비) / 전자담배 액상 20ml까지 면세 적용."
   },
   {
     "id": "c-kr-36",
@@ -563,7 +570,7 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "기념품(스낵류)",
     "itemSubtext": "말린 생선, 버터, 치즈, 컵형 곤약젤리, 소시지, 육포, 생과일, 생채소 등",
-    "guideText": "🚨 컵형 곤약젤리는 전량 압수 대상입니다. 튜브형(파우치형) 젤리만 반입 가능하니 구매 시 반드시 확인하세요!\n🚨 육포, 소시지 등 육가공품은 진공포장이라도 반입 금지입니다. 적발 시 최대 1,000만 원의 과태료가 부과됩니다.\n김은 자유롭지만, 젓갈/말린 생선은 인당 5kg & 10만 원 이내여야 하며 정부 발행 검역 증명서가 없으면 폐기될 수 있습니다."
+    "guideText": "[압수/폐기] 컵형 곤약젤리는 반입 불가. 튜브(파우치)형 제품만 안전하게 지참 가능.\n[고액 과태료] 육포·소시지는 포장 무관 반입 금지. 적발 시 최대 1,000만 원의 과태료 부과.\n[검역 필수] 젓갈·말린 생선은 인당 5kg & 10만 원 이내 제한. 정부 발행 검역 증명서 미비 시 전량 압수 및 폐기. (김은 자유롭게 반입 가능)"
   },
   {
     "id": "c-kr-38",
@@ -577,7 +584,7 @@ export const BAGGAGE_CHECKLIST_C_KOREA: BaggageChecklistRegulationRow[] = [
     "location": "기본 짐싸기 아이템 추가",
     "itemName": "기타(주의/금지 물품)",
     "itemSubtext": "수다페드, 아드레랄, CBD(대마 성분)오일, 살충제",
-    "guideText": "-"
+    "guideText": "[반입 금지,형사 처벌 주의] 아드레랄, 수다페드 등 마약류 위반 성분이 포함된 의약품과 CBD(대마) 성분 제품은 해외 구매 시 국내 반입이 엄격히 금지되며, 적발 시 구속 수사 및 형사 처벌 대상.\n[성분 확인 필수] 본인이 복용하는 상비약이나 건강기능식품 내에 국내 반입 제한 성분이 포함되어 있지 않은지 입국 전 반드시 재확인 필수.\n[위험물 반입 불가] 스프레이형이나 가스 충전식 살충제는 폭발 위험물로 분류되어 기내 휴대 및 위탁 수하물 이용이 전면 불가능."
   },
   {
     "id": "c-kr-40",

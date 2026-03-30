@@ -61,11 +61,17 @@ def main():
 
     for row in kix_rows:
         n += 1
-        name = row["소분류 (Item)"].strip()
-        summary = row["안내 문구 요약 (Action)"].strip()
-        detail = row["안내 문구 상세"].strip()
-        cat = row["카테고리"].strip()
-        tone = tone_from_emoji(row.get("수하물 카드 컬러", ""))
+        name = (row.get("소분류 (Item)") or row.get("소분류") or "").strip()
+        summary = (
+            row.get("안내 문구 요약 (Action)")
+            or row.get("안내 문구 요약")
+            or ""
+        ).strip()
+        detail = (row.get("안내 문구 상세") or row.get("안내 문구") or "").strip()
+        cat = (row.get("카테고리") or "").strip()
+        tone = tone_from_emoji(
+            str(row.get("수하물 카드 컬러", "") or row.get("안내 아이콘", "") or "")
+        )
         cabin, checked = infer_carry(summary, detail)
         sid = f"kix-{slug(cat)}-{slug(name)}-{n}"
         items.append(
@@ -78,7 +84,7 @@ def main():
                 "detailGuide": detail,
                 "route": {
                     "airports": ["KIX"],
-                    "directionLabel": row["국가 분류"].strip(),
+                    "directionLabel": (row.get("국가 분류") or "").strip() or "🇯🇵 일본행",
                 },
                 "cardTone": tone,
                 "excelSourceSheet": "카테고리별 분류_일본 오사카 간사이 공항 수하물 데이터",
@@ -87,11 +93,15 @@ def main():
 
     for row in icn_rows:
         n += 1
-        name = row["소분류"].strip()
-        summary = row["안내 문구 요약 (Action)"].strip()
-        detail = row["안내 문구 상세"].strip()
-        cat = row["카테고리"].strip()
-        tone = tone_from_emoji(row.get("안내 아이콘", ""))
+        name = (row.get("소분류") or row.get("소분류 (Item)") or "").strip()
+        summary = (
+            row.get("안내 문구 요약 (Action)")
+            or row.get("안내 문구 요약")
+            or ""
+        ).strip()
+        detail = (row.get("안내 문구 상세") or row.get("안내 문구") or "").strip()
+        cat = (row.get("카테고리") or "").strip()
+        tone = tone_from_emoji(str(row.get("안내 아이콘", "") or row.get("수하물 카드 컬러", "") or ""))
         cabin, checked = infer_carry(summary, detail)
         sid = f"icn-{slug(cat)}-{slug(name)}-{n}"
         items.append(
@@ -104,7 +114,7 @@ def main():
                 "detailGuide": detail,
                 "route": {
                     "airports": ["ICN"],
-                    "directionLabel": row["국가 분류"].strip(),
+                    "directionLabel": (row.get("국가 분류") or "").strip() or "🇰🇷 한국행",
                 },
                 "cardTone": tone,
                 "excelSourceSheet": "카테고리별 분류_한국 인천공항 수하물 데이터",
